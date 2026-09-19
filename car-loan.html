@@ -3,30 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Car loan calculator</title>
+<title>Car finance calculator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #eef1f4;
-    --panel: #ffffff;
-    --ink: #14202b;
-    --muted: #5b6b79;
-    --line: #d5dce3;
-    --accent: #2b4eff;
-    --interest: #ff8a3d;
-    --focus: #14202b;
+    --bg: #eef1f4; --panel: #ffffff; --ink: #14202b; --muted: #5b6b79; --line: #d5dce3;
+    --accent: #2b4eff; --interest: #ff8a3d; --focus: #14202b;
     --font: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
   }
   @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #10161c; --panel: #18212a; --ink: #e8eef4; --muted: #93a3b1;
-      --line: #2a3742; --accent: #7d95ff; --interest: #ff9d5c; --focus: #e8eef4;
-    }
+    :root { --bg: #10161c; --panel: #18212a; --ink: #e8eef4; --muted: #93a3b1; --line: #2a3742;
+      --accent: #7d95ff; --interest: #ff9d5c; --focus: #e8eef4; }
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); line-height: 1.5; }
-  a { color: inherit; }
   :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 20px 64px; }
   .back { display: inline-block; margin-bottom: 20px; color: var(--muted); text-decoration: none; font-size: 15px; }
@@ -35,25 +27,29 @@
   .sub { color: var(--muted); margin: 0 0 28px; max-width: 60ch; }
 
   .layout { display: grid; grid-template-columns: 340px 1fr; gap: 20px; align-items: start; }
-  @media (max-width: 820px) { .layout { grid-template-columns: 1fr; } }
+  .layout > * { min-width: 0; }
+  @media (max-width: 820px) { .layout { grid-template-columns: minmax(0, 1fr); } }
   .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
 
-  .mode { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: var(--bg); padding: 4px; border-radius: 10px; margin-bottom: 22px; }
-  .mode button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--muted); padding: 9px 8px; border-radius: 7px; cursor: pointer; }
-  .mode button[aria-pressed="true"] { background: var(--panel); color: var(--ink); font-weight: 600; box-shadow: 0 0 0 1px var(--line); }
+  .curline { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; font-size: 14px; color: var(--muted); }
+  .cur { font: inherit; font-size: 14px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; }
 
-  .field { margin-bottom: 22px; }
-  .field:last-child { margin-bottom: 0; }
+  .tabs, .mode { display: grid; gap: 4px; background: var(--bg); padding: 4px; border-radius: 10px; }
+  .tabs { grid-template-columns: repeat(5, 1fr); margin-bottom: 10px; }
+  .mode { grid-template-columns: 1fr 1fr; margin: 16px 0 22px; }
+  .tabs button, .mode button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--muted); padding: 9px 2px; border-radius: 7px; cursor: pointer; }
+  .tabs button[aria-pressed="true"], .mode button[aria-pressed="true"] { background: var(--panel); color: var(--ink); font-weight: 600; box-shadow: 0 0 0 1px var(--line); }
+  .typeinfo { color: var(--muted); font-size: 13px; margin: 0 0 20px; }
+
+  .field { margin-bottom: 20px; }
   .field label { display: block; font-weight: 600; font-size: 15px; margin-bottom: 8px; }
   .inrow { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-  .inrow input[type=number] {
-    width: 100%; font: inherit; font-size: 20px; font-weight: 600; color: var(--ink);
-    background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px;
-  }
+  .inrow input[type=number] { width: 100%; font: inherit; font-size: 20px; font-weight: 600; color: var(--ink);
+    background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
   .unit { color: var(--muted); font-size: 15px; white-space: nowrap; min-width: 3.4em; }
   input[type=range] { width: 100%; accent-color: var(--accent); }
-  .cur { font: inherit; font-size: 14px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; }
-  .curline { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; font-size: 14px; color: var(--muted); }
+  .note { color: var(--muted); font-size: 13px; }
+  .help { color: var(--muted); font-size: 13px; margin: -2px 0 0; }
 
   .headline { margin-bottom: 20px; }
   .headline .k { color: var(--muted); font-size: 15px; }
@@ -71,6 +67,10 @@
   .bar .bi { background: var(--interest); }
   .barlbl { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-top: 6px; }
 
+  .line { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 15px; font-variant-numeric: tabular-nums; }
+  .line span:first-child { color: var(--muted); }
+  .line span:last-child { font-weight: 600; text-align: right; }
+
   h2 { font-size: 20px; margin: 28px 0 10px; }
   .tablewrap { max-height: 480px; overflow: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
   table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; font-size: 14px; }
@@ -81,47 +81,18 @@
   td.int { color: var(--interest); }
   td.prin { color: var(--accent); }
   tfoot td { font-weight: 600; border-top: 2px solid var(--line); position: sticky; bottom: 0; background: var(--panel); }
-  .note { color: var(--muted); font-size: 13px; margin-top: 10px; }
+  .cmp td:first-child { color: var(--muted); }
+  .cmp td { white-space: normal; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <a class="back" href="index.html">Back to toolkit</a>
-  <h1>Car loan calculator</h1>
-  <p class="sub">Set the loan amount, length and yearly interest to see your monthly payment, plus how each payment splits between paying off the car and interest.</p>
+  <h1>Car finance calculator</h1>
+  <p class="sub">Compare a loan, hire purchase (HP), PCP or a lease. Set the price, length and interest to see the monthly payment and the full cost.</p>
 
   <div class="layout">
-    <section class="panel" aria-label="Loan settings">
-      <div class="mode" role="group" aria-label="What do you want to work out?">
-        <button type="button" id="modeA" aria-pressed="true">Find my payment</button>
-        <button type="button" id="modeB" aria-pressed="false">Find my loan amount</button>
-      </div>
-
-      <div class="field" id="fAmount">
-        <label for="amount">Loan amount</label>
-        <div class="inrow"><input type="number" id="amount" min="0" step="100" value="12718"><span class="unit cs">€</span></div>
-        <input type="range" id="amountR" min="500" max="80000" step="100" aria-label="Loan amount slider">
-      </div>
-
-      <div class="field" id="fPay" hidden>
-        <label for="pay">Monthly payment</label>
-        <div class="inrow"><input type="number" id="pay" min="0" step="5" value="240"><span class="unit cs">€</span></div>
-        <input type="range" id="payR" min="20" max="2000" step="5" aria-label="Monthly payment slider">
-      </div>
-
-      <div class="field">
-        <label for="term">Length of loan</label>
-        <div class="inrow"><input type="number" id="term" min="1" max="120" step="1" value="60"><span class="unit">months</span></div>
-        <input type="range" id="termR" min="6" max="120" step="1" aria-label="Loan length slider">
-        <div class="note" id="termYears"></div>
-      </div>
-
-      <div class="field">
-        <label for="rate">Annual interest rate</label>
-        <div class="inrow"><input type="number" id="rate" min="0" max="40" step="0.1" value="5"><span class="unit">% a year</span></div>
-        <input type="range" id="rateR" min="0" max="25" step="0.1" aria-label="Interest rate slider">
-      </div>
-
+    <section class="panel" aria-label="Finance settings">
       <div class="curline">
         <label for="cur">Currency</label>
         <select class="cur" id="cur">
@@ -130,32 +101,146 @@
           <option value="$">$ Dollar</option>
         </select>
       </div>
+
+      <div class="tabs" role="group" aria-label="Finance type" id="tabs">
+        <button type="button" data-type="loan" aria-pressed="true">Loan</button>
+        <button type="button" data-type="hp" aria-pressed="false">HP</button>
+        <button type="button" data-type="pcp" aria-pressed="false">PCP</button>
+        <button type="button" data-type="lease" aria-pressed="false">Lease</button>
+        <button type="button" data-type="compare" aria-pressed="false">Compare</button>
+      </div>
+      <p class="typeinfo" id="typeInfo"></p>
+
+      <div class="mode" role="group" aria-label="What do you want to work out?" data-show="loan hp pcp" style="margin-top:0">
+        <button type="button" id="modeA" aria-pressed="true">Find my payment</button>
+        <button type="button" id="modeB" aria-pressed="false">Find how much I can borrow</button>
+      </div>
+
+      <div class="field" id="fPrice" data-show="loan hp pcp compare">
+        <label for="price" id="priceLbl">Loan amount</label>
+        <div class="inrow"><input type="number" id="price" min="0" step="100" value="12718"><span class="unit cs">€</span></div>
+        <input type="range" id="priceR" min="500" max="100000" step="100" aria-label="Price slider">
+      </div>
+
+      <div class="field" id="fPay" hidden>
+        <label for="pay">Monthly payment</label>
+        <div class="inrow"><input type="number" id="pay" min="0" step="5" value="240"><span class="unit cs">€</span></div>
+        <input type="range" id="payR" min="20" max="2000" step="5" aria-label="Monthly payment slider">
+      </div>
+
+      <div class="field" data-show="loan hp pcp compare">
+        <label for="dep">Deposit</label>
+        <div class="inrow"><input type="number" id="dep" min="0" step="100" value="0"><span class="unit cs">€</span></div>
+      </div>
+
+      <div class="field" data-show="loan hp pcp compare">
+        <label for="px">Part-exchange value</label>
+        <div class="inrow"><input type="number" id="px" min="0" step="100" value="0"><span class="unit cs">€</span></div>
+        <p class="help">What the dealer gives you for your old car.</p>
+      </div>
+
+      <div class="field" data-show="loan hp pcp compare">
+        <label for="fees">Fees added to the finance</label>
+        <div class="inrow"><input type="number" id="fees" min="0" step="10" value="0"><span class="unit cs">€</span></div>
+        <p class="help">Arrangement or admin fee, if it is rolled into the loan.</p>
+      </div>
+
+      <div class="field">
+        <label for="term">Length of agreement</label>
+        <div class="inrow"><input type="number" id="term" min="1" max="120" step="1" value="60"><span class="unit">months</span></div>
+        <input type="range" id="termR" min="6" max="120" step="1" aria-label="Length slider">
+        <div class="note" id="termYears"></div>
+      </div>
+
+      <div class="field" data-show="loan hp pcp compare">
+        <label for="rate">Annual interest rate</label>
+        <div class="inrow"><input type="number" id="rate" min="0" max="40" step="0.1" value="5"><span class="unit">% a year</span></div>
+        <input type="range" id="rateR" min="0" max="25" step="0.1" aria-label="Interest rate slider">
+      </div>
+
+      <div class="field" data-show="pcp compare">
+        <label for="bal">Final payment (guaranteed future value)</label>
+        <div class="inrow"><input type="number" id="bal" min="0" step="100" value="4000"><span class="unit cs">€</span></div>
+        <p class="help">Due at the end if you want to keep the car.</p>
+      </div>
+
+      <div class="field" data-show="hp pcp compare">
+        <label for="opt">Option to purchase fee</label>
+        <div class="inrow"><input type="number" id="opt" min="0" step="5" value="10"><span class="unit cs">€</span></div>
+        <p class="help">Paid with the last payment to take ownership.</p>
+      </div>
+
+      <div class="field" data-show="lease compare">
+        <label for="rent">Monthly rental</label>
+        <div class="inrow"><input type="number" id="rent" min="0" step="5" value="250"><span class="unit cs">€</span></div>
+      </div>
+
+      <div class="field" data-show="lease compare">
+        <label for="init">Initial rental</label>
+        <div class="inrow"><input type="number" id="init" min="0" step="10" value="750"><span class="unit cs">€</span></div>
+        <p class="help">Paid up front. Counts as your first month.</p>
+      </div>
+
+      <div class="field" data-show="lease compare">
+        <label for="admin">Admin fee</label>
+        <div class="inrow"><input type="number" id="admin" min="0" step="10" value="150"><span class="unit cs">€</span></div>
+      </div>
+
+      <div class="field" data-show="pcp lease compare">
+        <label for="allow">Mileage allowance</label>
+        <div class="inrow"><input type="number" id="allow" min="0" step="500" value="10000"><span class="unit">miles a year</span></div>
+      </div>
+
+      <div class="field" data-show="pcp lease compare">
+        <label for="exp">Miles you expect to drive</label>
+        <div class="inrow"><input type="number" id="exp" min="0" step="500" value="10000"><span class="unit">miles a year</span></div>
+      </div>
+
+      <div class="field" data-show="pcp lease compare">
+        <label for="exc">Excess mileage charge</label>
+        <div class="inrow"><input type="number" id="exc" min="0" step="0.5" value="8"><span class="unit">pence a mile</span></div>
+      </div>
     </section>
 
     <section aria-live="polite">
-      <div class="panel">
+      <div class="panel" id="single">
         <div class="headline">
-          <div class="k" id="headK">Monthly payment</div>
+          <div class="k" id="headK"></div>
           <div class="v" id="headV"></div>
         </div>
-        <div class="bar" aria-hidden="true"><div class="bp" id="barP"></div><div class="bi" id="barI"></div></div>
-        <div class="barlbl"><span id="lblP"></span><span id="lblI"></span></div>
-        <div class="stats">
-          <div class="stat p"><div class="k">Principal (the car)</div><div class="v" id="sP"></div></div>
-          <div class="stat i"><div class="k">Total interest</div><div class="v" id="sI"></div></div>
-          <div class="stat"><div class="k">Total you repay</div><div class="v" id="sT"></div></div>
+        <div id="barWrap">
+          <div class="bar" aria-hidden="true"><div class="bp" id="barP"></div><div class="bi" id="barI"></div></div>
+          <div class="barlbl"><span id="lblP"></span><span id="lblI"></span></div>
         </div>
+        <div class="stats">
+          <div class="stat p"><div class="k" id="kP"></div><div class="v" id="sP"></div></div>
+          <div class="stat i"><div class="k" id="kI"></div><div class="v" id="sI"></div></div>
+          <div class="stat"><div class="k" id="kT"></div><div class="v" id="sT"></div></div>
+        </div>
+        <div id="extra"></div>
       </div>
 
-      <h2>Month by month</h2>
-      <div class="tablewrap">
-        <table>
-          <thead><tr><th>Month</th><th>Balance owed</th><th>Interest</th><th>Towards the car</th><th>Payment</th><th>Balance after</th></tr></thead>
-          <tbody id="rows"></tbody>
-          <tfoot><tr id="foot"></tr></tfoot>
-        </table>
+      <div id="comparePanel" hidden>
+        <div class="tablewrap">
+          <table class="cmp">
+            <thead><tr><th></th><th>Loan</th><th>HP</th><th>PCP</th><th>Lease</th></tr></thead>
+            <tbody id="cmpRows"></tbody>
+          </table>
+        </div>
+        <p class="note" style="margin-top:10px">Uses the same price, deposit, length and rate for the loan, HP and PCP. Real quotes have different rates, so use each tab for your actual numbers.</p>
       </div>
-      <p class="note">Uses the standard annuity formula: P = M × (1 − (1 + r)<sup>−n</sup>) ÷ r, where r is the annual rate ÷ 12 and n is the number of months. Real lenders may add fees, so treat this as an estimate.</p>
+
+      <div id="schedWrap">
+        <h2>Month by month</h2>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Month</th><th>Balance owed</th><th>Interest</th><th>Towards the car</th><th>Payment</th><th>Balance after</th></tr></thead>
+            <tbody id="rows"></tbody>
+            <tfoot><tr id="foot"></tr></tfoot>
+          </table>
+        </div>
+        <p class="note" style="margin-top:10px">Uses the standard annuity formula: P = M × (1 − (1 + r)<sup>−n</sup>) ÷ r, with r as the annual rate ÷ 12 and n as the number of months. PCP also subtracts the discounted final payment. If you type in a lender's quoted APR, the true monthly rate is slightly lower, so real quotes can be a little cheaper. Fees and terms vary, so treat this as an estimate.</p>
+      </div>
     </section>
   </div>
 </div>
@@ -163,91 +248,167 @@
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
-  var mode = 'A'; // A: amount -> payment, B: payment -> amount
+  var type = 'loan', solve = 'pay';
+  var FIN = { loan: 1, hp: 1, pcp: 1 };
+  var INFO = {
+    loan: 'Personal loan: you own the car from day one and repay in equal monthly payments.',
+    hp: 'Hire purchase: equal monthly payments plus a small fee at the end. You own the car after the last payment.',
+    pcp: 'PCP: lower monthly payments. At the end you pay the final payment to keep the car, hand it back, or part-exchange it.',
+    lease: 'Lease (personal contract hire): you rent the car and never own it. Mileage limits apply.',
+    compare: 'The same car, price and length, side by side.'
+  };
 
   function money(n) {
-    var c = $('cur').value;
-    return c + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return $('cur').value + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function num(id) { var v = parseFloat($(id).value); return isFinite(v) && v >= 0 ? v : 0; }
+  function ann(r, n) { return r === 0 ? n : (1 - Math.pow(1 + r, -n)) / r; }
+  function payment(P, r, n, B) { return (P - B * Math.pow(1 + r, -n)) / ann(r, n); }
+  function principal(M, r, n, B) { return M * ann(r, n) + B * Math.pow(1 + r, -n); }
+  function line(k, v) { return '<div class="line"><span>' + k + '</span><span>' + v + '</span></div>'; }
+
+  function vals() {
+    return { price: num('price'), dep: num('dep'), px: num('px'), fees: num('fees'),
+      n: Math.max(1, Math.round(num('term'))), r: num('rate') / 100 / 12, bal: num('bal'), opt: num('opt'),
+      allow: num('allow'), exp: num('exp'), exc: num('exc'), rent: num('rent'), init: num('init'),
+      admin: num('admin'), pay: num('pay') };
+  }
+  function excess(v) { return Math.max(0, v.exp - v.allow) * (v.n / 12) * v.exc / 100; }
+
+  // loan, HP or PCP
+  function fin(v, t, mode) {
+    var B = t === 'pcp' ? v.bal : 0, opt = t === 'loan' ? 0 : v.opt, P, M;
+    if (mode === 'borrow') { M = v.pay; P = principal(M, v.r, v.n, B); }
+    else { P = Math.max(0, v.price - v.dep - v.px + v.fees); M = Math.max(0, payment(P, v.r, v.n, B)); }
+    var pay = M * v.n;
+    return { P: P, M: M, B: B, opt: opt, interest: pay + B - P,
+      keep: v.dep + pay + B + opt, back: v.dep + pay + excess(v), afford: P + v.dep + v.px - v.fees };
+  }
+  function lease(v) {
+    var ex = excess(v);
+    var total = v.init + v.rent * Math.max(0, v.n - 1) + v.admin + ex;
+    return { M: v.rent, ex: ex, total: total };
   }
 
-  // payment for a given principal
-  function paymentFor(P, r, n) { return r === 0 ? P / n : P * r / (1 - Math.pow(1 + r, -n)); }
-  // principal for a given payment (present value of an annuity)
-  function principalFor(M, r, n) { return r === 0 ? M * n : M * (1 - Math.pow(1 + r, -n)) / r; }
-
-  function num(id, fallback) { var v = parseFloat($(id).value); return isFinite(v) && v >= 0 ? v : fallback; }
-
-  function calc() {
-    var n = Math.max(1, Math.round(num('term', 1)));
-    var r = num('rate', 0) / 100 / 12;
-    var P, M;
-    if (mode === 'A') {
-      P = num('amount', 0);
-      M = paymentFor(P, r, n);
-    } else {
-      M = num('pay', 0);
-      P = principalFor(M, r, n);
+  function showSingle(v) {
+    $('single').hidden = false; $('comparePanel').hidden = true;
+    if (type === 'lease') {
+      var L = lease(v);
+      $('headK').textContent = 'Monthly rental';
+      $('headV').textContent = money(L.M);
+      $('barWrap').hidden = true; $('schedWrap').hidden = true;
+      $('kP').textContent = 'Initial rental'; $('sP').textContent = money(v.init);
+      $('kI').textContent = 'Fees and excess mileage'; $('sI').textContent = money(v.admin + L.ex);
+      $('kT').textContent = 'Total cost of the lease'; $('sT').textContent = money(L.total);
+      $('extra').innerHTML =
+        line('Monthly rentals (' + Math.max(0, v.n - 1) + ' payments)', money(v.rent * Math.max(0, v.n - 1))) +
+        line('Estimated excess mileage charge', money(L.ex)) +
+        line('Average cost per month', money(L.total / v.n)) +
+        line('You own the car at the end', 'No');
+      return;
     }
+    var F = fin(v, type, solve);
+    $('barWrap').hidden = false; $('schedWrap').hidden = false;
+    $('headK').textContent = solve === 'pay' ? 'Monthly payment' : 'Amount you can finance';
+    $('headV').textContent = money(solve === 'pay' ? F.M : F.P);
+    $('kP').textContent = 'Amount financed'; $('sP').textContent = money(F.P);
+    $('kI').textContent = 'Total interest'; $('sI').textContent = money(F.interest);
+    $('kT').textContent = 'Total cash if you keep it'; $('sT').textContent = money(F.keep);
 
-    $('headK').textContent = mode === 'A' ? 'Monthly payment' : 'Loan amount you can borrow';
-    $('headV').textContent = money(mode === 'A' ? M : P);
-
-    // schedule
-    var bal = P, tI = 0, tP = 0, html = '';
-    for (var m = 1; m <= n; m++) {
-      var i = bal * r;
-      var pr = M - i;
-      var after = bal - pr;
-      if (m === n) { after = 0; } // absorb rounding
-      tI += i; tP += pr;
-      html += '<tr><td>' + m + '</td><td>' + money(bal) + '</td><td class="int">' + money(i) +
-        '</td><td class="prin">' + money(pr) + '</td><td>' + money(M) + '</td><td>' + money(Math.max(0, after)) + '</td></tr>';
-      bal = after;
-    }
-    $('rows').innerHTML = html;
-    $('foot').innerHTML = '<td>Total</td><td></td><td class="int">' + money(tI) + '</td><td class="prin">' + money(tP) +
-      '</td><td>' + money(M * n) + '</td><td></td>';
-
-    var total = M * n;
-    $('sP').textContent = money(P);
-    $('sI').textContent = money(total - P);
-    $('sT').textContent = money(total);
-    var pp = total > 0 ? (P / total) * 100 : 100;
-    $('barP').style.width = pp + '%';
-    $('barI').style.width = (100 - pp) + '%';
+    var tot = F.P + F.interest, pp = tot > 0 ? (F.P / tot) * 100 : 100;
+    $('barP').style.width = pp + '%'; $('barI').style.width = (100 - pp) + '%';
     $('lblP').textContent = 'Car ' + pp.toFixed(0) + '%';
     $('lblI').textContent = 'Interest ' + (100 - pp).toFixed(0) + '%';
 
-    var y = Math.floor(n / 12), mo = n % 12;
-    $('termYears').textContent = (y ? y + (y === 1 ? ' year' : ' years') : '') + (y && mo ? ' ' : '') + (mo ? mo + (mo === 1 ? ' month' : ' months') : '');
+    var x = '';
+    if (solve === 'borrow') x += line('Car price you could afford', money(F.afford));
+    if (v.dep + v.px > 0) x += line('Deposit and part-exchange', money(v.dep + v.px));
+    if (v.fees > 0) x += line('Fees added to the finance', money(v.fees));
+    if (type === 'pcp') x += line('Final payment to keep the car', money(F.B));
+    if (type !== 'loan') x += line('Option to purchase fee', money(F.opt));
+    if (type === 'pcp') x += line('Total cash if you hand it back', money(F.back));
+    if (type === 'pcp') x += line('Estimated excess mileage charge', money(excess(v)));
+    $('extra').innerHTML = x;
+
+    // schedule
+    var bal = F.P, tI = 0, tP = 0, html = '', m;
+    for (m = 1; m <= v.n; m++) {
+      var i = bal * v.r, pr = F.M - i, after = m === v.n ? F.B : bal - pr;
+      tI += i; tP += pr;
+      html += '<tr><td>' + m + '</td><td>' + money(bal) + '</td><td class="int">' + money(i) +
+        '</td><td class="prin">' + money(pr) + '</td><td>' + money(F.M) + '</td><td>' + money(Math.max(0, after)) + '</td></tr>';
+      bal = after;
+    }
+    if (F.B > 0) {
+      tP += F.B;
+      html += '<tr><td>Final</td><td>' + money(F.B) + '</td><td class="int">' + money(0) + '</td><td class="prin">' +
+        money(F.B) + '</td><td>' + money(F.B) + '</td><td>' + money(0) + '</td></tr>';
+    }
+    $('rows').innerHTML = html;
+    $('foot').innerHTML = '<td>Total</td><td></td><td class="int">' + money(tI) + '</td><td class="prin">' + money(tP) +
+      '</td><td>' + money(F.M * v.n + F.B) + '</td><td></td>';
   }
 
-  // link number box <-> slider
+  function showCompare(v) {
+    $('single').hidden = true; $('comparePanel').hidden = false; $('schedWrap').hidden = true;
+    var a = fin(v, 'loan', 'pay'), h = fin(v, 'hp', 'pay'), p = fin(v, 'pcp', 'pay'), L = lease(v);
+    function r(k, c) { return '<tr><td>' + k + '</td><td>' + c.join('</td><td>') + '</td></tr>'; }
+    $('cmpRows').innerHTML =
+      r('Monthly payment', [money(a.M), money(h.M), money(p.M), money(L.M)]) +
+      r('Total interest', [money(a.interest), money(h.interest), money(p.interest), '—']) +
+      r('Total cash to keep the car', [money(a.keep), money(h.keep), money(p.keep), '—']) +
+      r('Total cash if you hand it back', ['—', '—', money(p.back), money(L.total)]) +
+      r('You own the car at the end', ['Yes', 'Yes', 'Only if you pay the final payment', 'No']);
+  }
+
+  function calc() {
+    var v = vals();
+    $('termYears').textContent = (function () {
+      var y = Math.floor(v.n / 12), mo = v.n % 12;
+      return (y ? y + (y === 1 ? ' year' : ' years') : '') + (y && mo ? ' ' : '') + (mo ? mo + (mo === 1 ? ' month' : ' months') : '');
+    })();
+    if (type === 'compare') showCompare(v); else showSingle(v);
+  }
+
+  function refresh() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-show]'), function (e) {
+      e.hidden = e.getAttribute('data-show').split(' ').indexOf(type) === -1;
+    });
+    var borrow = FIN[type] && solve === 'borrow';
+    $('fPrice').hidden = $('fPrice').hidden || borrow;
+    $('fPay').hidden = !borrow;
+    $('priceLbl').textContent = type === 'loan' ? 'Loan amount' : 'Car price';
+    $('typeInfo').textContent = INFO[type];
+    Array.prototype.forEach.call(document.querySelectorAll('#tabs button'), function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-type') === type);
+    });
+    $('modeA').setAttribute('aria-pressed', solve === 'pay');
+    $('modeB').setAttribute('aria-pressed', solve === 'borrow');
+    calc();
+  }
+
   function link(numId, rangeId) {
     var a = $(numId), b = $(rangeId);
     b.value = a.value;
     a.addEventListener('input', function () { b.value = a.value; calc(); });
     b.addEventListener('input', function () { a.value = b.value; calc(); });
   }
-  link('amount', 'amountR'); link('pay', 'payR'); link('term', 'termR'); link('rate', 'rateR');
+  link('price', 'priceR'); link('pay', 'payR'); link('term', 'termR'); link('rate', 'rateR');
+  ['dep', 'px', 'fees', 'bal', 'opt', 'rent', 'init', 'admin', 'allow', 'exp', 'exc'].forEach(function (id) {
+    $(id).addEventListener('input', calc);
+  });
 
   $('cur').addEventListener('change', function () {
     Array.prototype.forEach.call(document.querySelectorAll('.cs'), function (e) { e.textContent = $('cur').value; });
     calc();
   });
+  Array.prototype.forEach.call(document.querySelectorAll('#tabs button'), function (b) {
+    b.addEventListener('click', function () { type = b.getAttribute('data-type'); refresh(); });
+  });
+  $('modeA').addEventListener('click', function () { solve = 'pay'; refresh(); });
+  $('modeB').addEventListener('click', function () { solve = 'borrow'; refresh(); });
 
-  function setMode(m) {
-    mode = m;
-    $('modeA').setAttribute('aria-pressed', m === 'A');
-    $('modeB').setAttribute('aria-pressed', m === 'B');
-    $('fAmount').hidden = m !== 'A';
-    $('fPay').hidden = m !== 'B';
-    calc();
-  }
-  $('modeA').addEventListener('click', function () { setMode('A'); });
-  $('modeB').addEventListener('click', function () { setMode('B'); });
-
-  calc();
+  refresh();
 })();
 </script>
 </body>
