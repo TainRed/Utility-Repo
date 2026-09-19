@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Car loan calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eef1f4;
+    --panel: #ffffff;
+    --ink: #14202b;
+    --muted: #5b6b79;
+    --line: #d5dce3;
+    --accent: #2b4eff;
+    --interest: #ff8a3d;
+    --focus: #14202b;
+    --font: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #10161c; --panel: #18212a; --ink: #e8eef4; --muted: #93a3b1;
+      --line: #2a3742; --accent: #7d95ff; --interest: #ff9d5c; --focus: #e8eef4;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); line-height: 1.5; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 20px 64px; }
+  .back { display: inline-block; margin-bottom: 20px; color: var(--muted); text-decoration: none; font-size: 15px; }
+  .back:hover { color: var(--ink); text-decoration: underline; }
+  h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.05; margin: 0 0 6px; font-weight: 800; letter-spacing: -0.02em; }
+  .sub { color: var(--muted); margin: 0 0 28px; max-width: 60ch; }
+
+  .layout { display: grid; grid-template-columns: 340px 1fr; gap: 20px; align-items: start; }
+  @media (max-width: 820px) { .layout { grid-template-columns: 1fr; } }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+
+  .mode { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: var(--bg); padding: 4px; border-radius: 10px; margin-bottom: 22px; }
+  .mode button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--muted); padding: 9px 8px; border-radius: 7px; cursor: pointer; }
+  .mode button[aria-pressed="true"] { background: var(--panel); color: var(--ink); font-weight: 600; box-shadow: 0 0 0 1px var(--line); }
+
+  .field { margin-bottom: 22px; }
+  .field:last-child { margin-bottom: 0; }
+  .field label { display: block; font-weight: 600; font-size: 15px; margin-bottom: 8px; }
+  .inrow { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .inrow input[type=number] {
+    width: 100%; font: inherit; font-size: 20px; font-weight: 600; color: var(--ink);
+    background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px;
+  }
+  .unit { color: var(--muted); font-size: 15px; white-space: nowrap; min-width: 3.4em; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  .cur { font: inherit; font-size: 14px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; }
+  .curline { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; font-size: 14px; color: var(--muted); }
+
+  .headline { margin-bottom: 20px; }
+  .headline .k { color: var(--muted); font-size: 15px; }
+  .headline .v { font-size: clamp(40px, 7vw, 68px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; }
+  @media (max-width: 520px) { .stats { grid-template-columns: 1fr; } }
+  .stat { border-top: 3px solid var(--line); padding-top: 8px; }
+  .stat.p { border-color: var(--accent); }
+  .stat.i { border-color: var(--interest); }
+  .stat .k { color: var(--muted); font-size: 13px; }
+  .stat .v { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  .bar { display: flex; height: 14px; border-radius: 7px; overflow: hidden; background: var(--line); }
+  .bar .bp { background: var(--accent); }
+  .bar .bi { background: var(--interest); }
+  .barlbl { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+  h2 { font-size: 20px; margin: 28px 0 10px; }
+  .tablewrap { max-height: 480px; overflow: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; font-size: 14px; }
+  th, td { text-align: right; padding: 9px 12px; white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { position: sticky; top: 0; background: var(--panel); border-bottom: 2px solid var(--line); font-weight: 600; }
+  tbody tr:nth-child(even) { background: color-mix(in srgb, var(--bg) 60%, transparent); }
+  td.int { color: var(--interest); }
+  td.prin { color: var(--accent); }
+  tfoot td { font-weight: 600; border-top: 2px solid var(--line); position: sticky; bottom: 0; background: var(--panel); }
+  .note { color: var(--muted); font-size: 13px; margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">Back to toolkit</a>
+  <h1>Car loan calculator</h1>
+  <p class="sub">Set the loan amount, length and yearly interest to see your monthly payment, plus how each payment splits between paying off the car and interest.</p>
+
+  <div class="layout">
+    <section class="panel" aria-label="Loan settings">
+      <div class="mode" role="group" aria-label="What do you want to work out?">
+        <button type="button" id="modeA" aria-pressed="true">Find my payment</button>
+        <button type="button" id="modeB" aria-pressed="false">Find my loan amount</button>
+      </div>
+
+      <div class="field" id="fAmount">
+        <label for="amount">Loan amount</label>
+        <div class="inrow"><input type="number" id="amount" min="0" step="100" value="12718"><span class="unit cs">€</span></div>
+        <input type="range" id="amountR" min="500" max="80000" step="100" aria-label="Loan amount slider">
+      </div>
+
+      <div class="field" id="fPay" hidden>
+        <label for="pay">Monthly payment</label>
+        <div class="inrow"><input type="number" id="pay" min="0" step="5" value="240"><span class="unit cs">€</span></div>
+        <input type="range" id="payR" min="20" max="2000" step="5" aria-label="Monthly payment slider">
+      </div>
+
+      <div class="field">
+        <label for="term">Length of loan</label>
+        <div class="inrow"><input type="number" id="term" min="1" max="120" step="1" value="60"><span class="unit">months</span></div>
+        <input type="range" id="termR" min="6" max="120" step="1" aria-label="Loan length slider">
+        <div class="note" id="termYears"></div>
+      </div>
+
+      <div class="field">
+        <label for="rate">Annual interest rate</label>
+        <div class="inrow"><input type="number" id="rate" min="0" max="40" step="0.1" value="5"><span class="unit">% a year</span></div>
+        <input type="range" id="rateR" min="0" max="25" step="0.1" aria-label="Interest rate slider">
+      </div>
+
+      <div class="curline">
+        <label for="cur">Currency</label>
+        <select class="cur" id="cur">
+          <option value="€">€ Euro</option>
+          <option value="£">£ Pound</option>
+          <option value="$">$ Dollar</option>
+        </select>
+      </div>
+    </section>
+
+    <section aria-live="polite">
+      <div class="panel">
+        <div class="headline">
+          <div class="k" id="headK">Monthly payment</div>
+          <div class="v" id="headV"></div>
+        </div>
+        <div class="bar" aria-hidden="true"><div class="bp" id="barP"></div><div class="bi" id="barI"></div></div>
+        <div class="barlbl"><span id="lblP"></span><span id="lblI"></span></div>
+        <div class="stats">
+          <div class="stat p"><div class="k">Principal (the car)</div><div class="v" id="sP"></div></div>
+          <div class="stat i"><div class="k">Total interest</div><div class="v" id="sI"></div></div>
+          <div class="stat"><div class="k">Total you repay</div><div class="v" id="sT"></div></div>
+        </div>
+      </div>
+
+      <h2>Month by month</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Month</th><th>Balance owed</th><th>Interest</th><th>Towards the car</th><th>Payment</th><th>Balance after</th></tr></thead>
+          <tbody id="rows"></tbody>
+          <tfoot><tr id="foot"></tr></tfoot>
+        </table>
+      </div>
+      <p class="note">Uses the standard annuity formula: P = M × (1 − (1 + r)<sup>−n</sup>) ÷ r, where r is the annual rate ÷ 12 and n is the number of months. Real lenders may add fees, so treat this as an estimate.</p>
+    </section>
+  </div>
+</div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var mode = 'A'; // A: amount -> payment, B: payment -> amount
+
+  function money(n) {
+    var c = $('cur').value;
+    return c + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  // payment for a given principal
+  function paymentFor(P, r, n) { return r === 0 ? P / n : P * r / (1 - Math.pow(1 + r, -n)); }
+  // principal for a given payment (present value of an annuity)
+  function principalFor(M, r, n) { return r === 0 ? M * n : M * (1 - Math.pow(1 + r, -n)) / r; }
+
+  function num(id, fallback) { var v = parseFloat($(id).value); return isFinite(v) && v >= 0 ? v : fallback; }
+
+  function calc() {
+    var n = Math.max(1, Math.round(num('term', 1)));
+    var r = num('rate', 0) / 100 / 12;
+    var P, M;
+    if (mode === 'A') {
+      P = num('amount', 0);
+      M = paymentFor(P, r, n);
+    } else {
+      M = num('pay', 0);
+      P = principalFor(M, r, n);
+    }
+
+    $('headK').textContent = mode === 'A' ? 'Monthly payment' : 'Loan amount you can borrow';
+    $('headV').textContent = money(mode === 'A' ? M : P);
+
+    // schedule
+    var bal = P, tI = 0, tP = 0, html = '';
+    for (var m = 1; m <= n; m++) {
+      var i = bal * r;
+      var pr = M - i;
+      var after = bal - pr;
+      if (m === n) { after = 0; } // absorb rounding
+      tI += i; tP += pr;
+      html += '<tr><td>' + m + '</td><td>' + money(bal) + '</td><td class="int">' + money(i) +
+        '</td><td class="prin">' + money(pr) + '</td><td>' + money(M) + '</td><td>' + money(Math.max(0, after)) + '</td></tr>';
+      bal = after;
+    }
+    $('rows').innerHTML = html;
+    $('foot').innerHTML = '<td>Total</td><td></td><td class="int">' + money(tI) + '</td><td class="prin">' + money(tP) +
+      '</td><td>' + money(M * n) + '</td><td></td>';
+
+    var total = M * n;
+    $('sP').textContent = money(P);
+    $('sI').textContent = money(total - P);
+    $('sT').textContent = money(total);
+    var pp = total > 0 ? (P / total) * 100 : 100;
+    $('barP').style.width = pp + '%';
+    $('barI').style.width = (100 - pp) + '%';
+    $('lblP').textContent = 'Car ' + pp.toFixed(0) + '%';
+    $('lblI').textContent = 'Interest ' + (100 - pp).toFixed(0) + '%';
+
+    var y = Math.floor(n / 12), mo = n % 12;
+    $('termYears').textContent = (y ? y + (y === 1 ? ' year' : ' years') : '') + (y && mo ? ' ' : '') + (mo ? mo + (mo === 1 ? ' month' : ' months') : '');
+  }
+
+  // link number box <-> slider
+  function link(numId, rangeId) {
+    var a = $(numId), b = $(rangeId);
+    b.value = a.value;
+    a.addEventListener('input', function () { b.value = a.value; calc(); });
+    b.addEventListener('input', function () { a.value = b.value; calc(); });
+  }
+  link('amount', 'amountR'); link('pay', 'payR'); link('term', 'termR'); link('rate', 'rateR');
+
+  $('cur').addEventListener('change', function () {
+    Array.prototype.forEach.call(document.querySelectorAll('.cs'), function (e) { e.textContent = $('cur').value; });
+    calc();
+  });
+
+  function setMode(m) {
+    mode = m;
+    $('modeA').setAttribute('aria-pressed', m === 'A');
+    $('modeB').setAttribute('aria-pressed', m === 'B');
+    $('fAmount').hidden = m !== 'A';
+    $('fPay').hidden = m !== 'B';
+    calc();
+  }
+  $('modeA').addEventListener('click', function () { setMode('A'); });
+  $('modeB').addEventListener('click', function () { setMode('B'); });
+
+  calc();
+})();
+</script>
+</body>
+</html>

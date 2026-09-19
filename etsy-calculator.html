@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Print-on-Demand Etsy — Fees &amp; Tax Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef1f4; --panel:#ffffff; --ink:#14202b; --ink-soft:#5b6b79;
+    --line:#d5dce3; --accent:#2b4eff; --accent-soft:#e3e9ff;
+    --good:#0f8a5f; --bad:#d6402b; --tipbg:#14202b; --tipink:#e8eef4;
+    --font:"Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#10161c; --panel:#18212a; --ink:#e8eef4; --ink-soft:#93a3b1;
+      --line:#2a3742; --accent:#7d95ff; --accent-soft:#212c4d;
+      --good:#3fd39b; --bad:#ff7a66; --tipbg:#e8eef4; --tipink:#14202b;
+    }
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5;padding:24px 20px 64px;}
+  :focus-visible{outline:3px solid var(--ink);outline-offset:2px;}
+  .wrap{max-width:1000px;margin:0 auto;}
+  .back{display:inline-block;margin-bottom:20px;color:var(--ink-soft);text-decoration:none;font-size:15px;}
+  .back:hover{color:var(--ink);text-decoration:underline;}
+
+  header{margin-bottom:28px;}
+  header h1{font-size:clamp(30px,5vw,46px);line-height:1.05;margin:0 0 8px;font-weight:800;letter-spacing:-0.02em;}
+  header p{margin:0;color:var(--ink-soft);max-width:70ch;}
+  .stamp{display:inline-block;vertical-align:middle;background:var(--accent-soft);color:var(--accent);
+    font-size:0.8rem;font-weight:600;padding:3px 10px;border-radius:999px;margin-left:10px;letter-spacing:0;}
+
+  section.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px 24px 12px;margin-bottom:20px;}
+  section.card h2{font-size:1.3rem;margin:0 0 4px;display:flex;align-items:baseline;gap:10px;font-weight:600;}
+  section.card h2 .n{background:var(--accent-soft);color:var(--accent);font-size:0.85rem;font-weight:600;padding:2px 9px;border-radius:999px;}
+  .sub{color:var(--ink-soft);font-size:0.95rem;margin:0 0 22px;}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px 32px;align-items:start;}
+  @media (max-width:700px){.grid{grid-template-columns:1fr;}}
+
+  .field{margin-bottom:18px;}
+  .field label{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:600;font-size:0.92rem;margin-bottom:6px;}
+  .field label .hint{color:var(--ink-soft);font-size:0.78rem;font-weight:400;text-align:right;}
+  .field .inputline{display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 12px;}
+  .field .inputline:focus-within{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft);}
+  .field .inputline .pfx,.field .inputline .sfx{color:var(--ink-soft);font-size:1rem;}
+  .field input[type="number"]{border:none;background:transparent;font-family:inherit;font-size:1.15rem;font-weight:600;color:var(--ink);padding:2px 0;width:100%;outline:none;}
+  .checkline{display:flex;align-items:center;gap:10px;font-size:0.92rem;margin-bottom:18px;}
+  .checkline input{width:18px;height:18px;accent-color:var(--accent);flex:none;}
+
+  details.rates{border-top:1px solid var(--line);margin-top:6px;}
+  details.rates summary{cursor:pointer;font-size:0.9rem;font-weight:600;color:var(--ink-soft);padding:14px 0;}
+  details.rates summary:hover{color:var(--ink);}
+  details.rates .grid{margin:6px 0 10px;}
+
+  .receipt{background:var(--bg);border-radius:12px;padding:16px 18px;font-size:0.92rem;font-variant-numeric:tabular-nums;}
+  .receipt .row{display:flex;justify-content:space-between;gap:12px;padding:5px 0;color:var(--ink-soft);position:relative;}
+  .receipt .row > span:first-child{display:flex;align-items:center;}
+  .receipt .row.total{border-top:2px solid var(--line);margin-top:8px;padding-top:12px;color:var(--ink);font-weight:600;}
+  .receipt .row.profit{font-weight:800;font-size:1.25rem;color:var(--ink);}
+  .receipt .row.profit.pos{color:var(--good);}
+  .receipt .row.profit.neg{color:var(--bad);}
+  .note{font-size:0.8rem;color:var(--ink-soft);margin:-2px 0 6px;padding-left:10px;border-left:3px solid var(--line);}
+
+  footer{margin-top:24px;font-size:0.8rem;color:var(--ink-soft);line-height:1.6;border-top:1px solid var(--line);padding-top:16px;}
+  footer a{color:var(--accent);}
+
+  .info{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;
+    border:1px solid var(--ink-soft);color:var(--ink-soft);font-size:0.68rem;font-weight:600;line-height:1;
+    margin-left:6px;cursor:help;position:relative;flex:none;}
+  .info:hover{border-color:var(--accent);color:var(--accent);}
+  .info .tip{visibility:hidden;opacity:0;position:absolute;bottom:135%;left:50%;transform:translateX(-50%);
+    width:240px;max-width:60vw;background:var(--tipbg);color:var(--tipink);font-weight:400;font-size:0.78rem;line-height:1.45;
+    padding:9px 11px;border-radius:8px;z-index:20;transition:opacity .12s ease;pointer-events:none;text-align:left;}
+  .info .tip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--tipbg);}
+  .info:hover .tip,.info:focus .tip{visibility:visible;opacity:1;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="index.html">Back to toolkit</a>
+
+  <header>
+    <h1>Etsy POD Profit Calculator<span class="stamp">UK · self-employed</span></h1>
+    <p>Etsy + Printful fees per sale, then income tax / Class 4 NI / Plan 2 student loan on the year. All rates are editable — open "adjust rates" if HMRC, Etsy or Printful change something.</p>
+  </header>
+
+  <!-- SECTION 1: PER SALE -->
+  <section class="card">
+    <h2><span class="n">01</span> Per-sale fees — Etsy + Printful</h2>
+    <p class="sub">What you actually keep from one order, on the Etsy free tier + Printful free plan.</p>
+
+    <div class="grid">
+      <div>
+        <div class="field">
+          <label>Item price you charge <span class="hint">excl. shipping</span><span class="info" tabindex="0">?<span class="tip">The listing price for the item on its own, before any shipping you add. This is what the buyer sees as the "price".</span></span></label>
+          <div class="inputline"><span class="pfx">£</span><input type="number" id="itemPrice" value="28.00" step="0.01" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Shipping you charge buyer<span class="info" tabindex="0">?<span class="tip">What you charge the customer for postage at checkout. Etsy's transaction fee, payment processing and regulatory fee are all calculated on price + shipping together, not just the item price.</span></span></label>
+          <div class="inputline"><span class="pfx">£</span><input type="number" id="shipCharged" value="3.50" step="0.01" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Printful base + print cost <span class="hint">your cost</span><span class="info" tabindex="0">?<span class="tip">Printful's wholesale price for the blank product plus printing your design on it. This is what YOU pay Printful — separate from what you charge the customer.</span></span></label>
+          <div class="inputline"><span class="pfx">£</span><input type="number" id="printfulBase" value="14.50" step="0.01" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Printful shipping cost to you<span class="info" tabindex="0">?<span class="tip">What Printful charges YOU to post the finished order to your customer. It's separate from — and usually cheaper than — what you charge the buyer for shipping.</span></span></label>
+          <div class="inputline"><span class="pfx">£</span><input type="number" id="printfulShip" value="4.20" step="0.01" min="0"></div>
+        </div>
+        <div class="checkline">
+          <input type="checkbox" id="vatRegistered">
+          <label for="vatRegistered">I'm VAT-registered (reclaims VAT on Etsy's fees)<span class="info" tabindex="0">?<span class="tip">Only relevant once your business turnover passes the UK VAT threshold (£90,000/year) or you register voluntarily. VAT-registered sellers can reclaim the VAT Etsy adds to its own fees, so it isn't a real cost for them. Leave unticked if you're not registered.</span></span></label>
+        </div>
+      </div>
+
+      <div class="receipt" id="receipt1"></div>
+    </div>
+
+    <details class="rates">
+      <summary>Adjust Etsy fee rates (verified against etsy.com/uk/legal/fees, current)</summary>
+      <div class="grid">
+        <div>
+          <div class="field">
+            <label>Listing fee <span class="hint">per item, 4mo</span><span class="info" tabindex="0">?<span class="tip">A flat fee Etsy charges just to publish a listing, regardless of whether it sells. It lasts 4 months (or until sold) — then renews and charges again automatically unless auto-renew is turned off.</span></span></label>
+            <div class="inputline"><span class="pfx">£</span><input type="number" id="etsyListing" value="0.15" step="0.01" min="0"></div>
+          </div>
+          <div class="field">
+            <label>Transaction fee <span class="hint">on item + shipping</span><span class="info" tabindex="0">?<span class="tip">Etsy's commission for facilitating the sale — charged as a % of the item price PLUS the shipping you charge the buyer, not just the item price alone.</span></span></label>
+            <div class="inputline"><input type="number" id="etsyTxnPct" value="6.5" step="0.1" min="0"><span class="sfx">%</span></div>
+          </div>
+          <div class="field">
+            <label>Payment processing — %<span class="info" tabindex="0">?<span class="tip">Etsy Payments' card-processing charge — a percentage of the whole order total (item + shipping), similar to what Stripe or PayPal would charge you elsewhere.</span></span></label>
+            <div class="inputline"><input type="number" id="etsyPPpct" value="4" step="0.1" min="0"><span class="sfx">%</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>Payment processing — flat<span class="info" tabindex="0">?<span class="tip">A fixed extra charge added on top of the % processing fee, on every single order, regardless of order size.</span></span></label>
+            <div class="inputline"><span class="pfx">£</span><input type="number" id="etsyPPflat" value="0.20" step="0.01" min="0"></div>
+          </div>
+          <div class="field">
+            <label>Regulatory operating fee <span class="hint">UK only</span><span class="info" tabindex="0">?<span class="tip">A UK-specific fee Etsy introduced to cover the cost of complying with UK online-marketplace regulations. Charged as a % of the order total, same base as the transaction fee.</span></span></label>
+            <div class="inputline"><input type="number" id="etsyReg" value="0.48" step="0.01" min="0"><span class="sfx">%</span></div>
+          </div>
+          <div class="field">
+            <label>VAT on Etsy's fees <span class="hint">non-VAT-registered</span><span class="info" tabindex="0">?<span class="tip">HMRC treats Etsy's UK service fees as subject to 20% VAT. If you're not VAT-registered you can't reclaim this, so it's a genuine extra cost on top of the fees themselves.</span></span></label>
+            <div class="inputline"><input type="number" id="etsyVat" value="20" step="1" min="0"><span class="sfx">%</span></div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="rates">
+      <summary>Optional subscriptions (both £0 on free/free tiers)</summary>
+      <div class="grid">
+        <div class="field">
+          <label>Etsy Plus <span class="hint">optional, per month</span></label>
+          <div class="inputline"><span class="pfx">£</span><input type="number" id="etsyPlus" value="0" step="0.01" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Printful Growth <span class="hint">optional, per month, $24.99 ≈ waived at $12k/yr sales</span></label>
+          <div class="inputline"><span class="pfx">£</span><input type="number" id="printfulGrowth" value="0" step="0.01" min="0"></div>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- SECTION 2: ANNUAL TAX -->
+  <section class="card">
+    <h2><span class="n">02</span> Annual tax — income tax, Class 4 NI, student loan</h2>
+    <p class="sub">Based on your yearly self-employment profit. Feeds from the per-sale number above, or type your own.</p>
+
+    <div class="grid">
+      <div>
+        <div class="field">
+          <label>Sales per month <span class="hint">used to estimate annual profit</span><span class="info" tabindex="0">?<span class="tip">Just a projection helper — multiplies the "Profit per sale" figure from Section 1 by this, ×12, to fill in the Annual profit field below. It doesn't feed into any tax figure directly.</span></span></label>
+          <div class="inputline"><input type="number" id="salesPerMonth" value="20" step="1" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Annual Etsy business profit <span class="hint">auto, editable</span><span class="info" tabindex="0">?<span class="tip">Your total shop profit for the UK tax year (6 April – 5 April), after Etsy fees and Printful costs. Both Income Tax and Class 4 NI are calculated on this. Overwrite it any time — it'll stop auto-updating once you do.</span></span></label>
+          <div class="inputline"><span class="pfx">£</span><input type="number" id="annualProfit" value="0" step="1" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Other taxable income <span class="hint">e.g. a job — Class 4 NI excludes this</span><span class="info" tabindex="0">?<span class="tip">Any other income for the year — a job, a second self-employment, etc. It counts towards your Personal Allowance, Income Tax bands and the student loan threshold, but NOT towards Class 4 NI, which is based on self-employment profit only.</span></span></label>
+          <div class="inputline"><span class="pfx">£</span><input type="number" id="otherIncome" value="0" step="1" min="0"></div>
+        </div>
+        <div class="checkline">
+          <input type="checkbox" id="hasStudentLoan" checked>
+          <label for="hasStudentLoan">I have a Plan 2 student loan<span class="info" tabindex="0">?<span class="tip">Plan 2 covers English/Welsh undergraduates who started their course between 2012 and 2023 (roughly). If you're actually on Plan 1, Plan 4 (Scotland) or Plan 5, the threshold and rate below are different — edit them to match your plan.</span></span></label>
+        </div>
+      </div>
+
+      <div class="receipt" id="receipt2"></div>
+    </div>
+
+    <details class="rates">
+      <summary>Adjust tax year rates — 2026/27 (verified: gov.uk / HMRC)</summary>
+      <div class="grid">
+        <div>
+          <div class="field"><label>Personal Allowance<span class="info" tabindex="0">?<span class="tip">The amount you can earn each year, from all sources, before paying any Income Tax at all. Reduces by £1 for every £2 you earn over £100,000, gone entirely above £125,140 (not modelled in this tool).</span></span></label><div class="inputline"><span class="pfx">£</span><input type="number" id="pa" value="12570" step="10"></div></div>
+          <div class="field"><label>Basic rate band up to<span class="info" tabindex="0">?<span class="tip">Income between the Personal Allowance and this threshold is taxed at the basic rate.</span></span></label><div class="inputline"><span class="pfx">£</span><input type="number" id="brThresh" value="50270" step="10"></div></div>
+          <div class="field"><label>Basic rate<span class="info" tabindex="0">?<span class="tip">Income Tax rate applied to income in the basic band. This is not the same as VAT or NI — it's just tax on your earnings.</span></span></label><div class="inputline"><input type="number" id="brRate" value="20" step="1"><span class="sfx">%</span></div></div>
+          <div class="field"><label>Higher rate band up to<span class="info" tabindex="0">?<span class="tip">Income between the basic-rate threshold and this one is taxed at the higher rate. Total income (business profit + other income) is what's tested against this, not business profit alone.</span></span></label><div class="inputline"><span class="pfx">£</span><input type="number" id="hrThresh" value="125140" step="10"></div></div>
+          <div class="field"><label>Higher rate<span class="info" tabindex="0">?<span class="tip">Income Tax rate applied to income between the basic and higher thresholds.</span></span></label><div class="inputline"><input type="number" id="hrRate" value="40" step="1"><span class="sfx">%</span></div></div>
+          <div class="field"><label>Additional rate <span class="hint">above higher band</span><span class="info" tabindex="0">?<span class="tip">Applies to every pound of income above the higher-rate threshold. Only relevant once total income passes £125,140 — unlikely for most POD shops in their first years.</span></span></label><div class="inputline"><input type="number" id="arRate" value="45" step="1"><span class="sfx">%</span></div></div>
+        </div>
+        <div>
+          <div class="field"><label>Class 4 NI lower limit<span class="info" tabindex="0">?<span class="tip">Class 4 National Insurance only kicks in once your self-employment PROFIT (not turnover, not total income) passes this figure for the year. Below it, Class 4 NI is £0 — this is why a new or small shop often shows nothing on that line.</span></span></label><div class="inputline"><span class="pfx">£</span><input type="number" id="c4Lower" value="12570" step="10"></div></div>
+          <div class="field"><label>Class 4 NI upper limit<span class="info" tabindex="0">?<span class="tip">Above this profit level, the rate drops to the lower "upper" rate below — Class 4 NI is deliberately less steep on higher slices of profit, similar to how employee NI works.</span></span></label><div class="inputline"><span class="pfx">£</span><input type="number" id="c4Upper" value="50270" step="10"></div></div>
+          <div class="field"><label>Class 4 main rate<span class="info" tabindex="0">?<span class="tip">The rate charged on the slice of profit between the lower and upper limits. Charged on self-employment profit only — never on employment income from a job.</span></span></label><div class="inputline"><input type="number" id="c4Main" value="6" step="1"><span class="sfx">%</span></div></div>
+          <div class="field"><label>Class 4 rate above upper limit<span class="info" tabindex="0">?<span class="tip">The lower rate charged on any profit above the upper limit — only relevant once your Etsy profit alone exceeds it.</span></span></label><div class="inputline"><input type="number" id="c4Upper2" value="2" step="1"><span class="sfx">%</span></div></div>
+          <div class="field"><label>Plan 2 threshold<span class="info" tabindex="0">?<span class="tip">You only start repaying your student loan once your TOTAL income (business profit + other income together) passes this figure for the year — not before.</span></span></label><div class="inputline"><span class="pfx">£</span><input type="number" id="slThresh" value="29385" step="10"></div></div>
+          <div class="field"><label>Plan 2 rate<span class="info" tabindex="0">?<span class="tip">The percentage of income ABOVE the threshold (not your whole income) that goes towards the loan each year. It's not extra interest — it's simply repayment.</span></span></label><div class="inputline"><input type="number" id="slRate" value="9" step="1"><span class="sfx">%</span></div></div>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    Verified: Etsy UK — £0.15 listing / 6.5% transaction / 4%+£0.20 payment processing / 0.48% regulatory fee / 20% VAT on fees (etsy.com/uk/legal/fees, etsy.com/uk/sell). Printful — free plan, no monthly fee, no transaction fee, you pay base cost + shipping per order (printful.com/pricing). UK tax 2026/27 — Personal Allowance £12,570, basic 20%/higher 40%/additional 45%, frozen thresholds (gov.uk). Class 4 NI 2026/27 — 6% on £12,570–£50,270, 2% above (gov.uk). Student loan Plan 2 2026/27 — 9% above £29,385 (gov.uk/repaying-your-student-loan). This is a planning tool, not tax advice — figures change at each Budget, and Class 2 NI, VAT registration (£90k threshold) and Payment on Account aren't modelled here.
+  </footer>
+
+</div>
+
+<script>
+function gbp(n){
+  const sign = n < 0 ? "-" : "";
+  return sign + "£" + Math.abs(n).toLocaleString('en-GB', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+function val(id){ return parseFloat(document.getElementById(id).value) || 0; }
+function info(text){
+  return `<span class="info" tabindex="0">?<span class="tip">${text}</span></span>`;
+}
+
+let lastAutoProfit = 0;
+
+function calcSale(){
+  const price = val('itemPrice');
+  const ship = val('shipCharged');
+  const orderTotal = price + ship;
+
+  const printfulBase = val('printfulBase');
+  const printfulShip = val('printfulShip');
+  const printfulCost = printfulBase + printfulShip;
+
+  const listing = val('etsyListing');
+  const txnFee = orderTotal * (val('etsyTxnPct')/100);
+  const ppFee = orderTotal * (val('etsyPPpct')/100) + val('etsyPPflat');
+  const regFee = orderTotal * (val('etsyReg')/100);
+  const etsySubtotal = listing + txnFee + ppFee + regFee;
+
+  const vatRegistered = document.getElementById('vatRegistered').checked;
+  const vatOnFees = vatRegistered ? 0 : etsySubtotal * (val('etsyVat')/100);
+
+  const subs = val('etsyPlus') + val('printfulGrowth'); // per-month, shown separately
+
+  const totalCosts = etsySubtotal + vatOnFees + printfulCost;
+  const profit = orderTotal - totalCosts;
+
+  const r = document.getElementById('receipt1');
+  r.innerHTML = `
+    <div class="row"><span>Order total (price + shipping)${info("Item price + shipping charged, added together. This is the base figure Etsy calculates its transaction fee, payment processing and regulatory fee on.")}</span><span>${gbp(orderTotal)}</span></div>
+    <div class="row"><span>Etsy listing fee${info("Flat fee to publish the listing, charged whether or not it sells. Renews every 4 months.")}</span><span>${gbp(listing)}</span></div>
+    <div class="row"><span>Etsy transaction fee (${val('etsyTxnPct')}%)${info("Etsy's commission on the sale — a % of price + shipping together.")}</span><span>${gbp(txnFee)}</span></div>
+    <div class="row"><span>Etsy payment processing${info("Card-processing cost: a % of the order total plus a small flat fee on every order.")}</span><span>${gbp(ppFee)}</span></div>
+    <div class="row"><span>Etsy regulatory fee${info("UK-specific fee covering Etsy's marketplace-regulation compliance costs.")}</span><span>${gbp(regFee)}</span></div>
+    <div class="row"><span>VAT on Etsy fees ${vatRegistered ? "(reclaimed)" : ""}${info(vatRegistered ? "You're marked as VAT-registered, so this VAT is reclaimable and not a real cost to you." : "20% VAT that HMRC requires on Etsy's own fees. Because you're not marked as VAT-registered above, you can't reclaim it — it's a genuine cost.")}</span><span>${gbp(vatOnFees)}</span></div>
+    <div class="row"><span>Printful base + print${info("Printful's wholesale + printing cost for this product — what you pay them, not the buyer.")}</span><span>${gbp(printfulBase)}</span></div>
+    <div class="row"><span>Printful shipping${info("What Printful charges you to post this order to the customer.")}</span><span>${gbp(printfulShip)}</span></div>
+    <div class="row total"><span>Total fees + costs${info("Every line above, added together — the full cost of fulfilling and selling this one item.")}</span><span>${gbp(totalCosts)}</span></div>
+    <div class="row profit ${profit >= 0 ? 'pos' : 'neg'}"><span>Profit per sale${info("Order total minus all fees and costs above. This figure (× sales/month × 12) feeds the annual estimate in Section 2.")}</span><span>${gbp(profit)}</span></div>
+    ${subs > 0 ? `<div class="row"><span>+ optional subs / month</span><span>${gbp(subs)}</span></div>` : ""}
+  `;
+
+  // feed section 2's estimate, but don't clobber a manual override
+  const perMonth = val('salesPerMonth');
+  const autoAnnual = Math.round(profit * perMonth * 12);
+  const annualField = document.getElementById('annualProfit');
+  if (parseFloat(annualField.value) === lastAutoProfit || annualField.value === "0" || annualField.value === "") {
+    annualField.value = autoAnnual;
+  }
+  lastAutoProfit = autoAnnual;
+
+  calcTax();
+}
+
+function calcTax(){
+  const annualProfit = val('annualProfit');
+  const otherIncome = val('otherIncome');
+  const totalIncome = annualProfit + otherIncome;
+
+  const pa = val('pa'), brT = val('brThresh'), brR = val('brRate')/100;
+  const hrT = val('hrThresh'), hrR = val('hrRate')/100, arR = val('arRate')/100;
+
+  const taxable = Math.max(0, totalIncome - pa);
+  let incomeTax = 0;
+  const basicBand = Math.max(0, brT - pa);
+  const higherBand = Math.max(0, hrT - brT);
+
+  if (taxable <= basicBand){
+    incomeTax = taxable * brR;
+  } else if (taxable <= basicBand + higherBand){
+    incomeTax = basicBand*brR + (taxable-basicBand)*hrR;
+  } else {
+    incomeTax = basicBand*brR + higherBand*hrR + (taxable-basicBand-higherBand)*arR;
+  }
+
+  const c4Lower = val('c4Lower'), c4Upper = val('c4Upper');
+  const c4Main = val('c4Main')/100, c4Top = val('c4Upper2')/100;
+  let class4 = 0;
+  if (annualProfit > c4Lower){
+    const mainPortion = Math.min(annualProfit, c4Upper) - c4Lower;
+    class4 += Math.max(0, mainPortion) * c4Main;
+    if (annualProfit > c4Upper){
+      class4 += (annualProfit - c4Upper) * c4Top;
+    }
+  }
+
+  const slThresh = val('slThresh'), slRate = val('slRate')/100;
+  const hasSL = document.getElementById('hasStudentLoan').checked;
+  const studentLoan = hasSL ? Math.max(0, totalIncome - slThresh) * slRate : 0;
+
+  const takeHome = totalIncome - incomeTax - class4 - studentLoan;
+
+  const class4Note = annualProfit <= c4Lower
+    ? `£0 — your profit (£${annualProfit.toLocaleString('en-GB')}) is below the £${c4Lower.toLocaleString('en-GB')} threshold, so no Class 4 NI is due yet.`
+    : (annualProfit <= c4Upper
+        ? `${val('c4Main')}% on the £${(annualProfit-c4Lower).toLocaleString('en-GB')} of profit above the £${c4Lower.toLocaleString('en-GB')} threshold.`
+        : `${val('c4Main')}% up to £${c4Upper.toLocaleString('en-GB')}, then ${val('c4Upper2')}% on the remaining £${(annualProfit-c4Upper).toLocaleString('en-GB')}.`);
+
+  const slNote = !hasSL
+    ? "Switched off — tick the Plan 2 box above to include it."
+    : (totalIncome <= slThresh
+        ? `£0 — total income (£${totalIncome.toLocaleString('en-GB')}) is below the £${slThresh.toLocaleString('en-GB')} repayment threshold.`
+        : `${val('slRate')}% of the £${(totalIncome-slThresh).toLocaleString('en-GB')} above the £${slThresh.toLocaleString('en-GB')} threshold.`);
+
+  const r = document.getElementById('receipt2');
+  r.innerHTML = `
+    <div class="row"><span>Total income (business + other)${info("Annual Etsy profit plus any other income. Income Tax and the student loan threshold are both tested against this combined figure.")}</span><span>${gbp(totalIncome)}</span></div>
+    <div class="row"><span>Income tax${info("UK Income Tax on total income above your Personal Allowance, banded at basic / higher / additional rates. Covers both business profit and other income together — it isn't a separate 'business tax'.")}</span><span>${gbp(incomeTax)}</span></div>
+    <div class="row"><span>Class 4 NI${info("National Insurance charged on self-employment PROFIT ONLY — never on income from a job. It only applies above the lower limit, taxed at the main rate up to the upper limit and a lower rate above it.")}</span><span>${gbp(class4)}</span></div>
+    <div class="note">${class4Note}</div>
+    <div class="row"><span>Student loan (Plan 2) ${hasSL ? "" : "— off"}${info("9% (by default) of your TOTAL income above the repayment threshold — business profit and other income combined. It's collected alongside tax through Self Assessment, not something HMRC adds on top.")}</span><span>${gbp(studentLoan)}</span></div>
+    <div class="note">${slNote}</div>
+    <div class="row total"><span>Total tax &amp; deductions${info("Income Tax + Class 4 NI + Student Loan, added together — everything HMRC will collect for the year.")}</span><span>${gbp(incomeTax+class4+studentLoan)}</span></div>
+    <div class="row profit ${takeHome >= 0 ? 'pos' : 'neg'}"><span>Take-home for the year${info("Total income minus all tax and deductions above. This is before you've paid yourself wages/drawings separately or reinvested anything back into stock.")}</span><span>${gbp(takeHome)}</span></div>
+    <div class="row"><span>≈ per month</span><span>${gbp(takeHome/12)}</span></div>
+  `;
+}
+
+document.querySelectorAll('input').forEach(el => {
+  el.addEventListener('input', () => { calcSale(); });
+});
+document.getElementById('annualProfit').addEventListener('input', calcTax);
+document.getElementById('otherIncome').addEventListener('input', calcTax);
+document.getElementById('hasStudentLoan').addEventListener('change', calcTax);
+
+calcSale();
+</script>
+</body>
+</html>

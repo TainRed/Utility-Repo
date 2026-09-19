@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tar's toolkit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eef1f4; --panel: #ffffff; --ink: #14202b; --muted: #5b6b79;
+    --line: #d5dce3; --accent: #2b4eff; --thumb: #e3e9ff; --thumb-ink: #2b4eff; --thumb-alt: #ff8a3d;
+    --font: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #10161c; --panel: #18212a; --ink: #e8eef4; --muted: #93a3b1;
+      --line: #2a3742; --accent: #7d95ff; --thumb: #212c4d; --thumb-ink: #7d95ff; --thumb-alt: #ff9d5c; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); line-height: 1.5; }
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 56px 20px 72px; }
+  h1 { font-size: clamp(40px, 8vw, 84px); line-height: 0.98; margin: 0 0 12px; font-weight: 800; letter-spacing: -0.035em; }
+  .sub { color: var(--muted); font-size: 18px; margin: 0 0 44px; max-width: 48ch; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+  .card { display: flex; flex-direction: column; text-decoration: none; color: inherit;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+    transition: border-color .15s, transform .15s; }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .thumb { aspect-ratio: 16 / 10; background: var(--thumb); display: grid; place-items: center; }
+  .thumb svg, .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .body { padding: 16px 18px 20px; }
+  .body h2 { font-size: 21px; margin: 0 0 4px; font-weight: 600; letter-spacing: -0.01em; }
+  .body p { margin: 0; color: var(--muted); font-size: 15px; }
+  .soon { border-style: dashed; background: transparent; pointer-events: none; }
+  .soon .thumb { background: transparent; color: var(--muted); font-size: 15px; }
+  @media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Toolkit</h1>
+  <p class="sub">Small tools that each do one job. Pick one to open it.</p>
+  <div class="grid" id="grid"></div>
+</div>
+
+<script>
+/* ADD A TOOL: copy one block, change name / desc / href, and either
+   set img to a file path (e.g. "img/mytool.png") or paste inline SVG. */
+var tools = [
+  {
+    name: "Etsy seller manager",
+    desc: "Track listings, costs and profit for your Etsy shop.",
+    href: "etsy.html",
+    img: '<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Spreadsheet with a price tag">' +
+         '<g fill="none" stroke="var(--thumb-ink)" stroke-width="2" opacity=".55">' +
+         '<rect x="40" y="36" width="240" height="128" rx="6"/>' +
+         '<path d="M40 68h240M40 100h240M40 132h240M120 36v128M200 36v128"/></g>' +
+         '<rect x="48" y="42" width="66" height="20" fill="var(--thumb-ink)" opacity=".25"/>' +
+         '<rect x="128" y="74" width="66" height="20" fill="var(--thumb-alt)" opacity=".7"/>' +
+         '<rect x="208" y="106" width="66" height="20" fill="var(--thumb-ink)" opacity=".55"/>' +
+         '<g transform="translate(232 110) rotate(-18)"><path d="M0 0h44l16 16-16 16H0z" fill="var(--thumb-alt)"/><circle cx="10" cy="16" r="3.5" fill="var(--thumb)"/></g></svg>'
+  },
+  {
+    name: "Car loan calculator",
+    desc: "Set amount, length and interest. See each month's payment.",
+    href: "car-loan.html",
+    img: '<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bars showing balance shrinking over months">' +
+         '<g fill="var(--thumb-ink)">' +
+         '<rect x="44" y="40" width="22" height="120" rx="3"/><rect x="74" y="50" width="22" height="110" rx="3"/>' +
+         '<rect x="104" y="62" width="22" height="98" rx="3"/><rect x="134" y="76" width="22" height="84" rx="3"/>' +
+         '<rect x="164" y="92" width="22" height="68" rx="3"/><rect x="194" y="110" width="22" height="50" rx="3"/>' +
+         '<rect x="224" y="128" width="22" height="32" rx="3"/><rect x="254" y="146" width="22" height="14" rx="3"/></g>' +
+         '<g fill="var(--thumb-alt)"><rect x="44" y="40" width="22" height="26" rx="3"/><rect x="74" y="50" width="22" height="22" rx="3"/>' +
+         '<rect x="104" y="62" width="22" height="18" rx="3"/><rect x="134" y="76" width="22" height="14" rx="3"/>' +
+         '<rect x="164" y="92" width="22" height="11" rx="3"/><rect x="194" y="110" width="22" height="8" rx="3"/>' +
+         '<rect x="224" y="128" width="22" height="5" rx="3"/></g></svg>'
+  },
+  {
+    name: "More coming",
+    desc: "Next tool goes here.",
+    href: "",
+    img: "Empty slot",
+    soon: true
+  }
+];
+
+var grid = document.getElementById('grid');
+tools.forEach(function (t) {
+  var a = document.createElement(t.soon ? 'div' : 'a');
+  a.className = 'card' + (t.soon ? ' soon' : '');
+  if (!t.soon) a.href = t.href;
+  var thumb = document.createElement('div');
+  thumb.className = 'thumb';
+  if (t.soon || t.img.indexOf('<svg') === 0) thumb.innerHTML = t.img;
+  else thumb.innerHTML = '<img src="' + t.img + '" alt="">';
+  var body = document.createElement('div');
+  body.className = 'body';
+  body.innerHTML = '<h2></h2><p></p>';
+  body.querySelector('h2').textContent = t.name;
+  body.querySelector('p').textContent = t.desc;
+  a.appendChild(thumb); a.appendChild(body);
+  grid.appendChild(a);
+});
+</script>
+</body>
+</html>
