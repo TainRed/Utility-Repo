@@ -9,12 +9,12 @@
 <style>
   :root {
     --bg: #eef1f4; --panel: #ffffff; --ink: #14202b; --muted: #5b6b79; --line: #d5dce3;
-    --accent: #2b4eff; --interest: #ff8a3d; --focus: #14202b;
+    --accent: #2b4eff; --interest: #ff8a3d; --focus: #14202b; --good: #0f8a5f; --bad: #d6402b;
     --font: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
   }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #10161c; --panel: #18212a; --ink: #e8eef4; --muted: #93a3b1; --line: #2a3742;
-      --accent: #7d95ff; --interest: #ff9d5c; --focus: #e8eef4; }
+      --accent: #7d95ff; --interest: #ff9d5c; --focus: #e8eef4; --good: #3fd39b; --bad: #ff7a66; }
   }
   * { box-sizing: border-box; }
   [hidden] { display: none !important; }
@@ -28,8 +28,10 @@
 
   .layout { display: grid; grid-template-columns: 340px 1fr; gap: 20px; align-items: start; }
   .layout > * { min-width: 0; }
+  @media (min-width: 821px) { .layout > * { position: sticky; } }
   @media (max-width: 820px) { .layout { grid-template-columns: minmax(0, 1fr); } }
   .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+  section.panel[aria-label="Finance settings"] { padding: 26px 30px; }
 
   .curline { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; font-size: 14px; color: var(--muted); }
   .cur { font: inherit; font-size: 14px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; }
@@ -41,9 +43,9 @@
   .tabs button[aria-pressed="true"], .mode button[aria-pressed="true"] { background: var(--panel); color: var(--ink); font-weight: 600; box-shadow: 0 0 0 1px var(--line); }
   .typeinfo { color: var(--muted); font-size: 13px; margin: 0 0 20px; }
 
-  .field { margin-bottom: 20px; }
-  .field label { display: block; font-weight: 600; font-size: 15px; margin-bottom: 8px; }
-  .inrow { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .field { margin-bottom: 26px; }
+  .field label { display: block; font-weight: 600; font-size: 15px; margin-bottom: 10px; }
+  .inrow { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
   .inrow input[type=number] { width: 100%; font: inherit; font-size: 20px; font-weight: 600; color: var(--ink);
     background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
   .unit { color: var(--muted); font-size: 15px; white-space: nowrap; min-width: 3.4em; }
@@ -52,15 +54,18 @@
   .help { color: var(--muted); font-size: 13px; margin: -2px 0 0; }
 
   .headline { margin-bottom: 20px; }
-  .headline .k { color: var(--muted); font-size: 15px; }
+  .headline .klabel { color: var(--muted); font-size: 15px; }
+  .headline .vrow { display: flex; justify-content: space-between; align-items: center; gap: 12px 20px; flex-wrap: wrap; }
+  .headline .hn { font-size: 18px; font-weight: 800; white-space: nowrap; color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent); padding: 8px 16px; border-radius: 999px; }
   .headline .v { font-size: clamp(40px, 7vw, 68px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; font-variant-numeric: tabular-nums; }
   .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; }
   @media (max-width: 520px) { .stats { grid-template-columns: 1fr; } }
   .stat { border-top: 3px solid var(--line); padding-top: 8px; }
   .stat.p { border-color: var(--accent); }
   .stat.i { border-color: var(--interest); }
-  .stat .k { color: var(--muted); font-size: 13px; }
-  .stat .v { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .stat .k { color: var(--ink); font-size: 13.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
+  .stat .v { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; margin-top: 2px; }
 
   .bar { display: flex; height: 14px; border-radius: 7px; overflow: hidden; background: var(--line); }
   .bar .bp { background: var(--accent); }
@@ -73,6 +78,7 @@
 
   h2 { font-size: 20px; margin: 28px 0 10px; }
   .tablewrap { max-height: 480px; overflow: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+  .cmpwrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
   table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; font-size: 14px; }
   th, td { text-align: right; padding: 9px 12px; white-space: nowrap; }
   th:first-child, td:first-child { text-align: left; }
@@ -83,6 +89,15 @@
   tfoot td { font-weight: 600; border-top: 2px solid var(--line); position: sticky; bottom: 0; background: var(--panel); }
   .cmp td:first-child { color: var(--muted); }
   .cmp td { white-space: normal; }
+  .cmp tr.metric td { font-weight: 700; font-size: 15px; color: var(--ink); border-top: 1px solid var(--line); padding: 13px 12px; }
+  .cmp tr.metric:first-child td { border-top: none; }
+  .cmp tr.length td { font-weight: 600; color: var(--muted); font-size: 13px; padding: 10px 12px; background: var(--bg); border-top: none; border-bottom: 1px solid var(--line); }
+  .cmp tr.sub td { font-size: 12.5px; color: var(--muted); padding: 4px 12px; border: 0; }
+  .cmp tr.sub td:first-child { padding-left: 24px; }
+  .save { color: var(--good); font-weight: 600; }
+  .cost { color: var(--bad); font-weight: 600; }
+  .cmp .save, .cmp .cost { font-weight: 600; }
+  .cmp .same { opacity: 0.6; }
 </style>
 </head>
 <body>
@@ -92,15 +107,16 @@
   <p class="sub">Compare a loan, hire purchase (HP), PCP or a lease. Set the price, length and interest to see the monthly payment and the full cost.</p>
 
   <div class="layout">
-    <section class="panel" aria-label="Finance settings">
+    <section class="panel" id="settings" aria-label="Finance settings">
       <div class="curline">
         <label for="cur">Currency</label>
         <select class="cur" id="cur">
-          <option value="€">€ Euro</option>
-          <option value="£">£ Pound</option>
-          <option value="$">$ Dollar</option>
+          <option value="£" data-code="GBP" selected>£ Pound</option>
+          <option value="€" data-code="EUR">€ Euro</option>
+          <option value="$" data-code="USD">$ Dollar</option>
         </select>
       </div>
+      <p class="help" id="rateNote" style="margin-top:-10px;margin-bottom:18px"></p>
 
       <div class="tabs" role="group" aria-label="Finance type" id="tabs">
         <button type="button" data-type="loan" aria-pressed="true">Loan</button>
@@ -118,30 +134,30 @@
 
       <div class="field" id="fPrice" data-show="loan hp pcp compare">
         <label for="price" id="priceLbl">Loan amount</label>
-        <div class="inrow"><input type="number" id="price" min="0" step="100" value="12718"><span class="unit cs">€</span></div>
+        <div class="inrow"><input type="number" id="price" min="0" step="100" value="12718"><span class="unit cs">£</span></div>
         <input type="range" id="priceR" min="500" max="100000" step="100" aria-label="Price slider">
       </div>
 
       <div class="field" id="fPay" hidden>
         <label for="pay">Monthly payment</label>
-        <div class="inrow"><input type="number" id="pay" min="0" step="5" value="240"><span class="unit cs">€</span></div>
+        <div class="inrow"><input type="number" id="pay" min="0" step="5" value="240"><span class="unit cs">£</span></div>
         <input type="range" id="payR" min="20" max="2000" step="5" aria-label="Monthly payment slider">
       </div>
 
       <div class="field" data-show="loan hp pcp compare">
         <label for="dep">Deposit</label>
-        <div class="inrow"><input type="number" id="dep" min="0" step="100" value="0"><span class="unit cs">€</span></div>
+        <div class="inrow"><input type="number" id="dep" min="0" step="100" value="0"><span class="unit cs">£</span></div>
       </div>
 
       <div class="field" data-show="loan hp pcp compare">
         <label for="px">Part-exchange value</label>
-        <div class="inrow"><input type="number" id="px" min="0" step="100" value="0"><span class="unit cs">€</span></div>
+        <div class="inrow"><input type="number" id="px" min="0" step="100" value="0"><span class="unit cs">£</span></div>
         <p class="help">What the dealer gives you for your old car.</p>
       </div>
 
       <div class="field" data-show="loan hp pcp compare">
         <label for="fees">Fees added to the finance</label>
-        <div class="inrow"><input type="number" id="fees" min="0" step="10" value="0"><span class="unit cs">€</span></div>
+        <div class="inrow"><input type="number" id="fees" min="0" step="10" value="0"><span class="unit cs">£</span></div>
         <p class="help">Arrangement or admin fee, if it is rolled into the loan.</p>
       </div>
 
@@ -152,6 +168,13 @@
         <div class="note" id="termYears"></div>
       </div>
 
+      <div class="field" data-show="loan hp pcp lease compare">
+        <label for="infl">Assumed annual inflation</label>
+        <div class="inrow"><input type="number" id="infl" min="0" max="20" step="0.1" value="2.5"><span class="unit">% a year</span></div>
+        <input type="range" id="inflR" min="0" max="12" step="0.1" aria-label="Inflation rate slider">
+        <p class="help">Used to show what your future payments are worth in today's money.</p>
+      </div>
+
       <div class="field" data-show="loan hp pcp compare">
         <label for="rate">Annual interest rate</label>
         <div class="inrow"><input type="number" id="rate" min="0" max="40" step="0.1" value="5"><span class="unit">% a year</span></div>
@@ -160,30 +183,30 @@
 
       <div class="field" data-show="pcp compare">
         <label for="bal">Final payment (guaranteed future value)</label>
-        <div class="inrow"><input type="number" id="bal" min="0" step="100" value="4000"><span class="unit cs">€</span></div>
+        <div class="inrow"><input type="number" id="bal" min="0" step="100" value="4000"><span class="unit cs">£</span></div>
         <p class="help">Due at the end if you want to keep the car.</p>
       </div>
 
       <div class="field" data-show="hp pcp compare">
         <label for="opt">Option to purchase fee</label>
-        <div class="inrow"><input type="number" id="opt" min="0" step="5" value="10"><span class="unit cs">€</span></div>
+        <div class="inrow"><input type="number" id="opt" min="0" step="5" value="10"><span class="unit cs">£</span></div>
         <p class="help">Paid with the last payment to take ownership.</p>
       </div>
 
       <div class="field" data-show="lease compare">
         <label for="rent">Monthly rental</label>
-        <div class="inrow"><input type="number" id="rent" min="0" step="5" value="250"><span class="unit cs">€</span></div>
+        <div class="inrow"><input type="number" id="rent" min="0" step="5" value="250"><span class="unit cs">£</span></div>
       </div>
 
       <div class="field" data-show="lease compare">
         <label for="init">Initial rental</label>
-        <div class="inrow"><input type="number" id="init" min="0" step="10" value="750"><span class="unit cs">€</span></div>
+        <div class="inrow"><input type="number" id="init" min="0" step="10" value="750"><span class="unit cs">£</span></div>
         <p class="help">Paid up front. Counts as your first month.</p>
       </div>
 
       <div class="field" data-show="lease compare">
         <label for="admin">Admin fee</label>
-        <div class="inrow"><input type="number" id="admin" min="0" step="10" value="150"><span class="unit cs">€</span></div>
+        <div class="inrow"><input type="number" id="admin" min="0" step="10" value="150"><span class="unit cs">£</span></div>
       </div>
 
       <div class="field" data-show="pcp lease compare">
@@ -202,11 +225,11 @@
       </div>
     </section>
 
-    <section aria-live="polite">
+    <section id="results" aria-live="polite">
       <div class="panel" id="single">
         <div class="headline">
-          <div class="k" id="headK"></div>
-          <div class="v" id="headV"></div>
+          <div class="klabel" id="headK"></div>
+          <div class="vrow"><div class="v" id="headV"></div><div class="hn" id="headN"></div></div>
         </div>
         <div id="barWrap">
           <div class="bar" aria-hidden="true"><div class="bp" id="barP"></div><div class="bi" id="barI"></div></div>
@@ -221,13 +244,25 @@
       </div>
 
       <div id="comparePanel" hidden>
-        <div class="tablewrap">
+        <div class="cmpwrap">
           <table class="cmp">
             <thead><tr><th></th><th>Loan</th><th>HP</th><th>PCP</th><th>Lease</th></tr></thead>
             <tbody id="cmpRows"></tbody>
           </table>
         </div>
         <p class="note" style="margin-top:10px">Uses the same price, deposit, length and rate for the loan, HP and PCP. Real quotes have different rates, so use each tab for your actual numbers.</p>
+      </div>
+
+      <div class="panel" id="inflBox" style="margin-top:20px">
+        <h2 style="margin-top:0">Adjusted for inflation</h2>
+        <p class="sub" id="inflSub" style="margin-bottom:16px"></p>
+        <div id="inflSingle"></div>
+        <div id="inflCompare" class="cmpwrap" hidden>
+          <table class="cmp">
+            <thead><tr><th></th><th>Loan</th><th>HP</th><th>PCP</th><th>Lease</th></tr></thead>
+            <tbody id="inflRows"></tbody>
+          </table>
+        </div>
       </div>
 
       <div id="schedWrap">
@@ -268,10 +303,11 @@
   function line(k, v) { return '<div class="line"><span>' + k + '</span><span>' + v + '</span></div>'; }
 
   function vals() {
+    var inflAnnual = num('infl') / 100;
     return { price: num('price'), dep: num('dep'), px: num('px'), fees: num('fees'),
       n: Math.max(1, Math.round(num('term'))), r: num('rate') / 100 / 12, bal: num('bal'), opt: num('opt'),
       allow: num('allow'), exp: num('exp'), exc: num('exc'), rent: num('rent'), init: num('init'),
-      admin: num('admin'), pay: num('pay') };
+      admin: num('admin'), pay: num('pay'), ri: Math.pow(1 + inflAnnual, 1 / 12) - 1 };
   }
   function excess(v) { return Math.max(0, v.exp - v.allow) * (v.n / 12) * v.exc / 100; }
 
@@ -295,6 +331,7 @@
     if (type === 'lease') {
       var L = lease(v);
       $('headK').textContent = 'Monthly rental';
+      $('headN').textContent = 'over ' + v.n + ' months';
       $('headV').textContent = money(L.M);
       $('barWrap').hidden = true; $('schedWrap').hidden = true;
       $('kP').textContent = 'Initial rental'; $('sP').textContent = money(v.init);
@@ -310,6 +347,7 @@
     var F = fin(v, type, solve);
     $('barWrap').hidden = false; $('schedWrap').hidden = false;
     $('headK').textContent = solve === 'pay' ? 'Monthly payment' : 'Amount you can finance';
+    $('headN').textContent = 'over ' + v.n + ' months';
     $('headV').textContent = money(solve === 'pay' ? F.M : F.P);
     $('kP').textContent = 'Amount financed'; $('sP').textContent = money(F.P);
     $('kI').textContent = 'Total interest'; $('sI').textContent = money(F.interest);
@@ -352,13 +390,88 @@
   function showCompare(v) {
     $('single').hidden = true; $('comparePanel').hidden = false; $('schedWrap').hidden = true;
     var a = fin(v, 'loan', 'pay'), h = fin(v, 'hp', 'pay'), p = fin(v, 'pcp', 'pay'), L = lease(v);
-    function r(k, c) { return '<tr><td>' + k + '</td><td>' + c.join('</td><td>') + '</td></tr>'; }
+    var COLS = ['Loan', 'HP', 'PCP', 'Lease'];
+
+    function diffCell(colVal, cmpVal) {
+      if (colVal === null || cmpVal === null) return '';
+      var d = cmpVal - colVal; // positive: this column saves money vs the compared one
+      if (Math.abs(d) < 0.005) return '<span class="same">' + money(0) + '</span>';
+      return d > 0 ? '<span class="save">+' + money(d) + '</span>' : '<span class="cost">&minus;' + money(-d) + '</span>';
+    }
+
+    // main metric row, then one saving row per other option that has a value to compare
+    function metricRows(label, vals) {
+      var cells = vals.map(function (n) { return n === null ? '—' : money(n); });
+      var html = '<tr class="metric"><td>' + label + '</td><td>' + cells.join('</td><td>') + '</td></tr>';
+      ['HP', 'PCP', 'Lease'].forEach(function (cmpName) {
+        var cmpIdx = COLS.indexOf(cmpName);
+        if (vals[cmpIdx] === null) return;
+        var cells2 = COLS.map(function (name, i) { return i === cmpIdx ? '' : diffCell(vals[i], vals[cmpIdx]); });
+        if (cells2.every(function (c) { return c === ''; })) return;
+        html += '<tr class="sub"><td>Saving vs ' + cmpName + '</td><td>' + cells2.join('</td><td>') + '</td></tr>';
+      });
+      return html;
+    }
+
     $('cmpRows').innerHTML =
-      r('Monthly payment', [money(a.M), money(h.M), money(p.M), money(L.M)]) +
-      r('Total interest', [money(a.interest), money(h.interest), money(p.interest), '—']) +
-      r('Total cash to keep the car', [money(a.keep), money(h.keep), money(p.keep), '—']) +
-      r('Total cash if you hand it back', ['—', '—', money(p.back), money(L.total)]) +
-      r('You own the car at the end', ['Yes', 'Yes', 'Only if you pay the final payment', 'No']);
+      '<tr class="length"><td>Length</td><td colspan="4">' + v.n + ' months</td></tr>' +
+      metricRows('Monthly payment', [a.M, h.M, p.M, L.M]) +
+      metricRows('Total interest', [a.interest, h.interest, p.interest, null]) +
+      metricRows('Total cash to keep the car', [a.keep, h.keep, p.keep, null]) +
+      metricRows('Total cash if you hand it back', [null, null, p.back, L.total]) +
+      '<tr class="metric"><td>You own the car at the end</td><td>Yes</td><td>Yes</td><td>Only if you pay the final payment</td><td>No</td></tr>';
+  }
+
+  function realFin(v, t) {
+    var F = fin(v, t, 'pay');
+    var extraNow = F.B + (t !== 'loan' ? F.opt : 0);
+    var real = v.dep + F.M * ann(v.ri, v.n) + extraNow / Math.pow(1 + v.ri, v.n);
+    var nominal = v.dep + F.M * v.n + extraNow;
+    return { nominal: nominal, real: real };
+  }
+  function realLease(v) {
+    var L = lease(v);
+    var real = v.init + v.admin + v.rent * ann(v.ri, Math.max(0, v.n - 1)) + excess(v) / Math.pow(1 + v.ri, v.n);
+    return { nominal: L.total, real: real };
+  }
+
+  function showInflation(v) {
+    var pct = (num('infl')).toFixed(1) + '%';
+    $('inflSub').textContent = 'What your total repayments are worth in today\u2019s money, assuming ' + pct + ' inflation a year over ' + v.n + ' months.';
+    if (type === 'compare') {
+      $('inflSingle').hidden = true; $('inflCompare').hidden = false;
+      var a = realFin(v, 'loan'), h = realFin(v, 'hp'), p = realFin(v, 'pcp'), l = realLease(v);
+      function row(label, key, cls) {
+        var vs = [a, h, p, l].map(function (o) { return o[key]; });
+        return '<tr class="' + cls + '"><td>' + label + '</td><td>' + vs.map(money).join('</td><td>') + '</td></tr>';
+      }
+      function saveRow() {
+        var vs = [a, h, p, l].map(function (o) { return o.nominal - o.real; });
+        return '<tr class="sub"><td>What inflation saves you</td><td>' + vs.map(function (n) {
+          return '<span class="save">' + money(n) + '</span>';
+        }).join('</td><td>') + '</td></tr>';
+      }
+      $('inflRows').innerHTML = row('Total repayable', 'nominal', 'metric') + row('Value in today\u2019s money', 'real', 'metric') + saveRow();
+    } else {
+      $('inflSingle').hidden = false; $('inflCompare').hidden = true;
+      var r = type === 'lease' ? realLease(v) : realFin(v, type);
+      $('inflSingle').innerHTML = line('Total repayable', money(r.nominal)) +
+        line('Value in today\u2019s money', money(r.real)) +
+        line('What inflation saves you', '<span class="save">' + money(r.nominal - r.real) + '</span>');
+    }
+  }
+
+  // Sticky columns: the shorter column scrolls until its bottom meets the bottom of the screen, then stays put.
+  function stick() {
+    ['settings', 'results'].forEach(function (id) {
+      var el = $(id);
+      el.style.top = Math.min(20, window.innerHeight - el.offsetHeight - 20) + 'px';
+    });
+  }
+  window.addEventListener('resize', stick);
+  if (window.ResizeObserver) {
+    var ro = new ResizeObserver(stick);
+    ro.observe($('settings')); ro.observe($('results'));
   }
 
   function calc() {
@@ -368,6 +481,8 @@
       return (y ? y + (y === 1 ? ' year' : ' years') : '') + (y && mo ? ' ' : '') + (mo ? mo + (mo === 1 ? ' month' : ' months') : '');
     })();
     if (type === 'compare') showCompare(v); else showSingle(v);
+    showInflation(v);
+    stick();
   }
 
   function refresh() {
@@ -393,15 +508,47 @@
     a.addEventListener('input', function () { b.value = a.value; calc(); });
     b.addEventListener('input', function () { a.value = b.value; calc(); });
   }
-  link('price', 'priceR'); link('pay', 'payR'); link('term', 'termR'); link('rate', 'rateR');
+  link('price', 'priceR'); link('pay', 'payR'); link('term', 'termR'); link('rate', 'rateR'); link('infl', 'inflR');
   ['dep', 'px', 'fees', 'bal', 'opt', 'rent', 'init', 'admin', 'allow', 'exp', 'exc'].forEach(function (id) {
     $(id).addEventListener('input', calc);
   });
 
-  $('cur').addEventListener('change', function () {
+  // Exchange rates, GBP base. Fallback values are rough and only used if the live fetch fails.
+  var RATES = { GBP: 1, EUR: 1.15, USD: 1.33 };
+  var rateText = 'Using approximate rates (live rates unavailable)';
+  var curCode = 'GBP';
+  var MONEY_IDS = ['price', 'pay', 'dep', 'px', 'fees', 'bal', 'opt', 'rent', 'init', 'admin', 'exc'];
+  var SLIDER_OF = { price: 'priceR', pay: 'payR' };
+
+  function selCode() { var s = $('cur'); return s.options[s.selectedIndex].getAttribute('data-code'); }
+  function rateNote() {
+    var to = selCode();
+    $('rateNote').textContent = to === 'GBP' ? rateText : '1 GBP = ' + RATES[to].toFixed(4) + ' ' + to + '. ' + rateText;
+  }
+  function setSymbols() {
     Array.prototype.forEach.call(document.querySelectorAll('.cs'), function (e) { e.textContent = $('cur').value; });
-    calc();
+  }
+
+  fetch('https://api.frankfurter.dev/v1/latest?base=GBP&symbols=EUR,USD')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      RATES.EUR = d.rates.EUR; RATES.USD = d.rates.USD;
+      rateText = 'Live rate from ' + d.date + ' (European Central Bank).';
+      rateNote();
+    })
+    .catch(function () { rateNote(); });
+
+  $('cur').addEventListener('change', function () {
+    var to = selCode(), ratio = RATES[to] / RATES[curCode];
+    MONEY_IDS.forEach(function (id) {
+      var el = $(id), val = parseFloat(el.value);
+      if (isFinite(val)) el.value = Math.round(val * ratio * 100) / 100;
+      if (SLIDER_OF[id]) $(SLIDER_OF[id]).value = el.value;
+    });
+    curCode = to;
+    setSymbols(); rateNote(); calc();
   });
+  setSymbols(); rateNote();
   Array.prototype.forEach.call(document.querySelectorAll('#tabs button'), function (b) {
     b.addEventListener('click', function () { type = b.getAttribute('data-type'); refresh(); });
   });
