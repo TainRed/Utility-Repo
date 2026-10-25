@@ -1,0 +1,2102 @@
+[
+ {
+  "id": "en-0001",
+  "lang": "en",
+  "category": "general",
+  "word": "calm",
+  "sentence": "The lake was perfectly ~ after the storm passed."
+ },
+ {
+  "id": "en-0002",
+  "lang": "en",
+  "category": "general",
+  "word": "dust",
+  "sentence": "A thin layer of ~ covered the old bookshelf."
+ },
+ {
+  "id": "en-0003",
+  "lang": "en",
+  "category": "general",
+  "word": "fern",
+  "sentence": "A green ~ unfurled in the shady corner of the garden."
+ },
+ {
+  "id": "en-0004",
+  "lang": "en",
+  "category": "general",
+  "word": "gaze",
+  "sentence": "She turned her ~ towards the distant hills."
+ },
+ {
+  "id": "en-0005",
+  "lang": "en",
+  "category": "general",
+  "word": "hive",
+  "sentence": "Thousands of bees buzzed around the ~."
+ },
+ {
+  "id": "en-0006",
+  "lang": "en",
+  "category": "general",
+  "word": "jolt",
+  "sentence": "The bus gave a sudden ~ and we all lurched forward."
+ },
+ {
+  "id": "en-0007",
+  "lang": "en",
+  "category": "general",
+  "word": "knit",
+  "sentence": "Gran likes to ~ scarves for the whole family."
+ },
+ {
+  "id": "en-0008",
+  "lang": "en",
+  "category": "general",
+  "word": "lamp",
+  "sentence": "He switched on the ~ beside his bed."
+ },
+ {
+  "id": "en-0009",
+  "lang": "en",
+  "category": "general",
+  "word": "mist",
+  "sentence": "Morning ~ hung low over the fields."
+ },
+ {
+  "id": "en-0010",
+  "lang": "en",
+  "category": "general",
+  "word": "nest",
+  "sentence": "A robin built a ~ in the hedge."
+ },
+ {
+  "id": "en-0011",
+  "lang": "en",
+  "category": "general",
+  "word": "oath",
+  "sentence": "The witness took an ~ to tell the truth."
+ },
+ {
+  "id": "en-0012",
+  "lang": "en",
+  "category": "general",
+  "word": "pond",
+  "sentence": "Frogs splashed into the ~ as we approached."
+ },
+ {
+  "id": "en-0013",
+  "lang": "en",
+  "category": "general",
+  "word": "quiz",
+  "sentence": "Our team won the pub ~ on Thursday night."
+ },
+ {
+  "id": "en-0014",
+  "lang": "en",
+  "category": "general",
+  "word": "rust",
+  "sentence": "Years of rain had left the gate covered in ~."
+ },
+ {
+  "id": "en-0015",
+  "lang": "en",
+  "category": "general",
+  "word": "silk",
+  "sentence": "The dress was made of smooth, shiny ~."
+ },
+ {
+  "id": "en-0016",
+  "lang": "en",
+  "category": "general",
+  "word": "tide",
+  "sentence": "The ~ was out, so we walked across the sand."
+ },
+ {
+  "id": "en-0017",
+  "lang": "en",
+  "category": "general",
+  "word": "vast",
+  "sentence": "A ~ desert stretched out in every direction."
+ },
+ {
+  "id": "en-0018",
+  "lang": "en",
+  "category": "general",
+  "word": "wisp",
+  "sentence": "A ~ of smoke curled up from the chimney."
+ },
+ {
+  "id": "en-0019",
+  "lang": "en",
+  "category": "general",
+  "word": "yarn",
+  "sentence": "She wound the soft wool ~ into a ball."
+ },
+ {
+  "id": "en-0020",
+  "lang": "en",
+  "category": "general",
+  "word": "zest",
+  "sentence": "Grate the ~ of a lemon into the mixture."
+ },
+ {
+  "id": "en-0021",
+  "lang": "en",
+  "category": "general",
+  "word": "bark",
+  "sentence": "The dog began to ~ at the postman."
+ },
+ {
+  "id": "en-0022",
+  "lang": "en",
+  "category": "general",
+  "word": "claw",
+  "sentence": "The cat sank one ~ into the sofa."
+ },
+ {
+  "id": "en-0023",
+  "lang": "en",
+  "category": "general",
+  "word": "drum",
+  "sentence": "He kept a steady beat on the ~."
+ },
+ {
+  "id": "en-0024",
+  "lang": "en",
+  "category": "general",
+  "word": "echo",
+  "sentence": "Her shout made an ~ across the valley."
+ },
+ {
+  "id": "en-0025",
+  "lang": "en",
+  "category": "general",
+  "word": "flux",
+  "sentence": "Prices were in a constant state of ~."
+ },
+ {
+  "id": "en-0026",
+  "lang": "en",
+  "category": "general",
+  "word": "glow",
+  "sentence": "The embers gave off a warm orange ~."
+ },
+ {
+  "id": "en-0027",
+  "lang": "en",
+  "category": "general",
+  "word": "haze",
+  "sentence": "A summer ~ hid the far side of the city."
+ },
+ {
+  "id": "en-0028",
+  "lang": "en",
+  "category": "general",
+  "word": "iron",
+  "sentence": "Please ~ my shirt before the interview."
+ },
+ {
+  "id": "en-0029",
+  "lang": "en",
+  "category": "general",
+  "word": "jade",
+  "sentence": "The carving was made from smooth green ~."
+ },
+ {
+  "id": "en-0030",
+  "lang": "en",
+  "category": "general",
+  "word": "arch",
+  "sentence": "The old stone ~ spanned the whole river."
+ },
+ {
+  "id": "en-0031",
+  "lang": "en",
+  "category": "general",
+  "word": "blur",
+  "sentence": "Without his glasses, everything was a ~."
+ },
+ {
+  "id": "en-0032",
+  "lang": "en",
+  "category": "general",
+  "word": "cove",
+  "sentence": "The boat was moored in a sheltered ~."
+ },
+ {
+  "id": "en-0033",
+  "lang": "en",
+  "category": "general",
+  "word": "dome",
+  "sentence": "The great ~ of the cathedral gleamed in the sun."
+ },
+ {
+  "id": "en-0034",
+  "lang": "en",
+  "category": "general",
+  "word": "fuse",
+  "sentence": "A faulty plug made the ~ blow."
+ },
+ {
+  "id": "en-0035",
+  "lang": "en",
+  "category": "general",
+  "word": "grin",
+  "sentence": "He had a huge ~ on his face."
+ },
+ {
+  "id": "en-0036",
+  "lang": "en",
+  "category": "general",
+  "word": "husk",
+  "sentence": "Remove the ~ before you cook the corn."
+ },
+ {
+  "id": "en-0037",
+  "lang": "en",
+  "category": "general",
+  "word": "lark",
+  "sentence": "A ~ sang high above the meadow."
+ },
+ {
+  "id": "en-0038",
+  "lang": "en",
+  "category": "general",
+  "word": "kelp",
+  "sentence": "Seals swam through the towering forest of ~."
+ },
+ {
+  "id": "en-0039",
+  "lang": "en",
+  "category": "general",
+  "word": "amber",
+  "sentence": "The traffic light turned ~ and we slowed down."
+ },
+ {
+  "id": "en-0040",
+  "lang": "en",
+  "category": "general",
+  "word": "bison",
+  "sentence": "A massive ~ grazed on the open plain."
+ },
+ {
+  "id": "en-0041",
+  "lang": "en",
+  "category": "general",
+  "word": "cabin",
+  "sentence": "We stayed in a log ~ beside the loch."
+ },
+ {
+  "id": "en-0042",
+  "lang": "en",
+  "category": "general",
+  "word": "dwell",
+  "sentence": "Some people prefer to ~ in the countryside."
+ },
+ {
+  "id": "en-0043",
+  "lang": "en",
+  "category": "general",
+  "word": "eagle",
+  "sentence": "An ~ soared above the mountain peaks."
+ },
+ {
+  "id": "en-0044",
+  "lang": "en",
+  "category": "general",
+  "word": "fable",
+  "sentence": "The ~ of the tortoise and the hare teaches patience."
+ },
+ {
+  "id": "en-0045",
+  "lang": "en",
+  "category": "general",
+  "word": "glide",
+  "sentence": "Swans ~ silently across the water."
+ },
+ {
+  "id": "en-0046",
+  "lang": "en",
+  "category": "general",
+  "word": "haste",
+  "sentence": "In his ~, he left his keys behind."
+ },
+ {
+  "id": "en-0047",
+  "lang": "en",
+  "category": "general",
+  "word": "ivory",
+  "sentence": "The piano keys were made of ~."
+ },
+ {
+  "id": "en-0048",
+  "lang": "en",
+  "category": "general",
+  "word": "jaunt",
+  "sentence": "We went on a short ~ to the seaside."
+ },
+ {
+  "id": "en-0049",
+  "lang": "en",
+  "category": "general",
+  "word": "kneel",
+  "sentence": "Please ~ down so I can tie your laces."
+ },
+ {
+  "id": "en-0050",
+  "lang": "en",
+  "category": "general",
+  "word": "lemon",
+  "sentence": "She squeezed a ~ over the fish."
+ },
+ {
+  "id": "en-0051",
+  "lang": "en",
+  "category": "general",
+  "word": "maple",
+  "sentence": "The ~ tree turns red in autumn."
+ },
+ {
+  "id": "en-0052",
+  "lang": "en",
+  "category": "general",
+  "word": "nymph",
+  "sentence": "In myths, a ~ lived in the forest stream."
+ },
+ {
+  "id": "en-0053",
+  "lang": "en",
+  "category": "general",
+  "word": "olive",
+  "sentence": "He drizzled ~ oil over the salad."
+ },
+ {
+  "id": "en-0054",
+  "lang": "en",
+  "category": "general",
+  "word": "pious",
+  "sentence": "The ~ monk prayed every morning."
+ },
+ {
+  "id": "en-0055",
+  "lang": "en",
+  "category": "general",
+  "word": "quilt",
+  "sentence": "Grandma stitched a patchwork ~ for my bed."
+ },
+ {
+  "id": "en-0056",
+  "lang": "en",
+  "category": "general",
+  "word": "ridge",
+  "sentence": "We walked along the narrow ~ at sunrise."
+ },
+ {
+  "id": "en-0057",
+  "lang": "en",
+  "category": "general",
+  "word": "scold",
+  "sentence": "Mum will ~ you if you track mud inside."
+ },
+ {
+  "id": "en-0058",
+  "lang": "en",
+  "category": "general",
+  "word": "thumb",
+  "sentence": "He hit his ~ with the hammer."
+ },
+ {
+  "id": "en-0059",
+  "lang": "en",
+  "category": "general",
+  "word": "vigour",
+  "sentence": "He tackled the job with energy and ~."
+ },
+ {
+  "id": "en-0060",
+  "lang": "en",
+  "category": "general",
+  "word": "wharf",
+  "sentence": "Fishing boats unloaded their catch at the ~."
+ },
+ {
+  "id": "en-0061",
+  "lang": "en",
+  "category": "general",
+  "word": "yacht",
+  "sentence": "A white ~ drifted out of the marina."
+ },
+ {
+  "id": "en-0062",
+  "lang": "en",
+  "category": "general",
+  "word": "zebra",
+  "sentence": "The ~ has black and white stripes."
+ },
+ {
+  "id": "en-0063",
+  "lang": "en",
+  "category": "general",
+  "word": "bloom",
+  "sentence": "The roses ~ in early summer."
+ },
+ {
+  "id": "en-0064",
+  "lang": "en",
+  "category": "general",
+  "word": "crisp",
+  "sentence": "The autumn air was cold and ~."
+ },
+ {
+  "id": "en-0065",
+  "lang": "en",
+  "category": "general",
+  "word": "daunt",
+  "sentence": "Don't let the long climb ~ you."
+ },
+ {
+  "id": "en-0066",
+  "lang": "en",
+  "category": "general",
+  "word": "ember",
+  "sentence": "A single ~ still glowed in the fireplace."
+ },
+ {
+  "id": "en-0067",
+  "lang": "en",
+  "category": "general",
+  "word": "frost",
+  "sentence": "~ covered the windscreen this morning."
+ },
+ {
+  "id": "en-0068",
+  "lang": "en",
+  "category": "general",
+  "word": "grace",
+  "sentence": "The dancer moved with ~ and ease."
+ },
+ {
+  "id": "en-0069",
+  "lang": "en",
+  "category": "general",
+  "word": "hinge",
+  "sentence": "The door creaked on its rusty ~."
+ },
+ {
+  "id": "en-0070",
+  "lang": "en",
+  "category": "general",
+  "word": "irony",
+  "sentence": "The ~ was that the fire station burned down."
+ },
+ {
+  "id": "en-0071",
+  "lang": "en",
+  "category": "general",
+  "word": "joust",
+  "sentence": "Knights would ~ on horseback at the tournament."
+ },
+ {
+  "id": "en-0072",
+  "lang": "en",
+  "category": "general",
+  "word": "knack",
+  "sentence": "She has a ~ for fixing old radios."
+ },
+ {
+  "id": "en-0073",
+  "lang": "en",
+  "category": "general",
+  "word": "lunar",
+  "sentence": "The astronauts studied the ~ surface."
+ },
+ {
+  "id": "en-0074",
+  "lang": "en",
+  "category": "general",
+  "word": "mirth",
+  "sentence": "The room rang with laughter and ~."
+ },
+ {
+  "id": "en-0075",
+  "lang": "en",
+  "category": "general",
+  "word": "noble",
+  "sentence": "It was a ~ thing to give back the money."
+ },
+ {
+  "id": "en-0076",
+  "lang": "en",
+  "category": "general",
+  "word": "orbit",
+  "sentence": "The Moon travels in an ~ around the Earth."
+ },
+ {
+  "id": "en-0077",
+  "lang": "en",
+  "category": "general",
+  "word": "plume",
+  "sentence": "A ~ of steam rose from the kettle."
+ },
+ {
+  "id": "en-0078",
+  "lang": "en",
+  "category": "general",
+  "word": "quirk",
+  "sentence": "His odd ~ is that he eats toast upside down."
+ },
+ {
+  "id": "en-0079",
+  "lang": "en",
+  "category": "general",
+  "word": "badge",
+  "sentence": "She pinned a shiny ~ to her coat."
+ },
+ {
+  "id": "en-0080",
+  "lang": "en",
+  "category": "general",
+  "word": "charm",
+  "sentence": "The little cottage had real ~."
+ },
+ {
+  "id": "en-0081",
+  "lang": "en",
+  "category": "general",
+  "word": "depth",
+  "sentence": "Measure the ~ of the pool before you dive."
+ },
+ {
+  "id": "en-0082",
+  "lang": "en",
+  "category": "general",
+  "word": "flame",
+  "sentence": "The ~ flickered in the draught."
+ },
+ {
+  "id": "en-0083",
+  "lang": "en",
+  "category": "general",
+  "word": "globe",
+  "sentence": "He span the ~ and pointed to Brazil."
+ },
+ {
+  "id": "en-0084",
+  "lang": "en",
+  "category": "general",
+  "word": "haven",
+  "sentence": "The quiet café was a ~ from the noisy street."
+ },
+ {
+  "id": "en-0085",
+  "lang": "en",
+  "category": "general",
+  "word": "inlet",
+  "sentence": "Boats sheltered in a narrow ~."
+ },
+ {
+  "id": "en-0086",
+  "lang": "en",
+  "category": "general",
+  "word": "jewel",
+  "sentence": "The crown was set with a single red ~."
+ },
+ {
+  "id": "en-0087",
+  "lang": "en",
+  "category": "general",
+  "word": "raven",
+  "sentence": "A black ~ perched on the old gatepost."
+ },
+ {
+  "id": "en-0088",
+  "lang": "en",
+  "category": "general",
+  "word": "anchor",
+  "sentence": "The crew dropped the ~ in the bay."
+ },
+ {
+  "id": "en-0089",
+  "lang": "en",
+  "category": "general",
+  "word": "bridge",
+  "sentence": "We drove across the long suspension ~."
+ },
+ {
+  "id": "en-0090",
+  "lang": "en",
+  "category": "general",
+  "word": "candle",
+  "sentence": "She lit a ~ and made a wish."
+ },
+ {
+  "id": "en-0091",
+  "lang": "en",
+  "category": "general",
+  "word": "dazzle",
+  "sentence": "The bright lights began to ~ the crowd."
+ },
+ {
+  "id": "en-0092",
+  "lang": "en",
+  "category": "general",
+  "word": "escape",
+  "sentence": "The prisoner planned his ~ carefully."
+ },
+ {
+  "id": "en-0093",
+  "lang": "en",
+  "category": "general",
+  "word": "fabric",
+  "sentence": "The curtains were made from heavy ~."
+ },
+ {
+  "id": "en-0094",
+  "lang": "en",
+  "category": "general",
+  "word": "garlic",
+  "sentence": "Crush a clove of ~ into the pan."
+ },
+ {
+  "id": "en-0095",
+  "lang": "en",
+  "category": "general",
+  "word": "harbour",
+  "sentence": "Fishing boats rocked gently in the ~."
+ },
+ {
+  "id": "en-0096",
+  "lang": "en",
+  "category": "general",
+  "word": "island",
+  "sentence": "They sailed to a tiny ~ off the coast."
+ },
+ {
+  "id": "en-0097",
+  "lang": "en",
+  "category": "general",
+  "word": "jungle",
+  "sentence": "Monkeys swung through the thick ~."
+ },
+ {
+  "id": "en-0098",
+  "lang": "en",
+  "category": "general",
+  "word": "kernel",
+  "sentence": "Each ~ of popcorn exploded in the pan."
+ },
+ {
+  "id": "en-0099",
+  "lang": "en",
+  "category": "general",
+  "word": "ladder",
+  "sentence": "He climbed the ~ to clean the gutter."
+ },
+ {
+  "id": "en-0100",
+  "lang": "en",
+  "category": "general",
+  "word": "meadow",
+  "sentence": "Wildflowers filled the sunny ~."
+ },
+ {
+  "id": "en-0101",
+  "lang": "en",
+  "category": "general",
+  "word": "nectar",
+  "sentence": "Bees collect ~ from the flowers."
+ },
+ {
+  "id": "en-0102",
+  "lang": "en",
+  "category": "general",
+  "word": "oyster",
+  "sentence": "She found a pearl inside the ~."
+ },
+ {
+  "id": "en-0103",
+  "lang": "en",
+  "category": "general",
+  "word": "pebble",
+  "sentence": "He skimmed a flat ~ across the lake."
+ },
+ {
+  "id": "en-0104",
+  "lang": "en",
+  "category": "general",
+  "word": "quartz",
+  "sentence": "The cave sparkled with crystals of ~."
+ },
+ {
+  "id": "en-0105",
+  "lang": "en",
+  "category": "general",
+  "word": "rabbit",
+  "sentence": "A ~ hopped out from the hedge."
+ },
+ {
+  "id": "en-0106",
+  "lang": "en",
+  "category": "general",
+  "word": "saddle",
+  "sentence": "She tightened the ~ on the horse."
+ },
+ {
+  "id": "en-0107",
+  "lang": "en",
+  "category": "general",
+  "word": "temple",
+  "sentence": "Visitors removed their shoes before entering the ~."
+ },
+ {
+  "id": "en-0108",
+  "lang": "en",
+  "category": "general",
+  "word": "unveil",
+  "sentence": "The mayor will ~ the new statue today."
+ },
+ {
+  "id": "en-0109",
+  "lang": "en",
+  "category": "general",
+  "word": "velvet",
+  "sentence": "The sofa was covered in soft red ~."
+ },
+ {
+  "id": "en-0110",
+  "lang": "en",
+  "category": "general",
+  "word": "window",
+  "sentence": "Please open the ~ and let in some air."
+ },
+ {
+  "id": "en-0111",
+  "lang": "en",
+  "category": "general",
+  "word": "yellow",
+  "sentence": "Sunflowers are bright ~."
+ },
+ {
+  "id": "en-0112",
+  "lang": "en",
+  "category": "general",
+  "word": "zephyr",
+  "sentence": "A gentle ~ rustled the leaves."
+ },
+ {
+  "id": "en-0113",
+  "lang": "en",
+  "category": "general",
+  "word": "breeze",
+  "sentence": "A cool ~ blew in from the sea."
+ },
+ {
+  "id": "en-0114",
+  "lang": "en",
+  "category": "general",
+  "word": "circus",
+  "sentence": "The ~ came to town with clowns and acrobats."
+ },
+ {
+  "id": "en-0115",
+  "lang": "en",
+  "category": "general",
+  "word": "dragon",
+  "sentence": "The ~ breathed fire in the story."
+ },
+ {
+  "id": "en-0116",
+  "lang": "en",
+  "category": "general",
+  "word": "empire",
+  "sentence": "The Roman ~ once covered much of Europe."
+ },
+ {
+  "id": "en-0117",
+  "lang": "en",
+  "category": "general",
+  "word": "forest",
+  "sentence": "We camped deep in the ~."
+ },
+ {
+  "id": "en-0118",
+  "lang": "en",
+  "category": "general",
+  "word": "gadget",
+  "sentence": "He bought a clever little ~ for the kitchen."
+ },
+ {
+  "id": "en-0119",
+  "lang": "en",
+  "category": "general",
+  "word": "hammer",
+  "sentence": "Use a ~ to knock in the nail."
+ },
+ {
+  "id": "en-0120",
+  "lang": "en",
+  "category": "general",
+  "word": "insect",
+  "sentence": "An ~ with six legs landed on my arm."
+ },
+ {
+  "id": "en-0121",
+  "lang": "en",
+  "category": "general",
+  "word": "jigsaw",
+  "sentence": "We finished the thousand-piece ~ at midnight."
+ },
+ {
+  "id": "en-0122",
+  "lang": "en",
+  "category": "general",
+  "word": "knight",
+  "sentence": "The ~ rode out to defend the castle."
+ },
+ {
+  "id": "en-0123",
+  "lang": "en",
+  "category": "general",
+  "word": "legend",
+  "sentence": "The ~ of King Arthur is centuries old."
+ },
+ {
+  "id": "en-0124",
+  "lang": "en",
+  "category": "general",
+  "word": "magnet",
+  "sentence": "The fridge ~ held up the shopping list."
+ },
+ {
+  "id": "en-0125",
+  "lang": "en",
+  "category": "general",
+  "word": "napkin",
+  "sentence": "Please place the ~ on your lap."
+ },
+ {
+  "id": "en-0126",
+  "lang": "en",
+  "category": "general",
+  "word": "orchid",
+  "sentence": "A purple ~ bloomed on the windowsill."
+ },
+ {
+  "id": "en-0127",
+  "lang": "en",
+  "category": "general",
+  "word": "basket",
+  "sentence": "She carried the apples in a wicker ~."
+ },
+ {
+  "id": "en-0128",
+  "lang": "en",
+  "category": "general",
+  "word": "castle",
+  "sentence": "The ~ stood proudly on the hill."
+ },
+ {
+  "id": "en-0129",
+  "lang": "en",
+  "category": "general",
+  "word": "desert",
+  "sentence": "Camels crossed the hot, dry ~."
+ },
+ {
+  "id": "en-0130",
+  "lang": "en",
+  "category": "general",
+  "word": "engine",
+  "sentence": "The ~ roared into life."
+ },
+ {
+  "id": "en-0131",
+  "lang": "en",
+  "category": "general",
+  "word": "flavour",
+  "sentence": "Mint is my favourite ice cream ~."
+ },
+ {
+  "id": "en-0132",
+  "lang": "en",
+  "category": "general",
+  "word": "garden",
+  "sentence": "We grow beans in the ~."
+ },
+ {
+  "id": "en-0133",
+  "lang": "en",
+  "category": "general",
+  "word": "helmet",
+  "sentence": "Always wear a ~ when you cycle."
+ },
+ {
+  "id": "en-0134",
+  "lang": "en",
+  "category": "general",
+  "word": "impact",
+  "sentence": "The new rule had a big ~ on pupils."
+ },
+ {
+  "id": "en-0135",
+  "lang": "en",
+  "category": "general",
+  "word": "pillow",
+  "sentence": "She rested her head on a soft ~."
+ },
+ {
+  "id": "en-0136",
+  "lang": "en",
+  "category": "general",
+  "word": "balance",
+  "sentence": "It takes ~ to ride a bicycle."
+ },
+ {
+  "id": "en-0137",
+  "lang": "en",
+  "category": "general",
+  "word": "captain",
+  "sentence": "The ~ steered the ship through the fog."
+ },
+ {
+  "id": "en-0138",
+  "lang": "en",
+  "category": "general",
+  "word": "dolphin",
+  "sentence": "A ~ leapt out of the waves."
+ },
+ {
+  "id": "en-0139",
+  "lang": "en",
+  "category": "general",
+  "word": "eclipse",
+  "sentence": "We watched the solar ~ through special glasses."
+ },
+ {
+  "id": "en-0140",
+  "lang": "en",
+  "category": "general",
+  "word": "fortune",
+  "sentence": "He made a ~ selling antiques."
+ },
+ {
+  "id": "en-0141",
+  "lang": "en",
+  "category": "general",
+  "word": "giraffe",
+  "sentence": "A ~ stretched its long neck to reach the leaves."
+ },
+ {
+  "id": "en-0142",
+  "lang": "en",
+  "category": "general",
+  "word": "history",
+  "sentence": "We learnt about Tudor ~ at school."
+ },
+ {
+  "id": "en-0143",
+  "lang": "en",
+  "category": "general",
+  "word": "imagine",
+  "sentence": "Close your eyes and ~ a quiet beach."
+ },
+ {
+  "id": "en-0144",
+  "lang": "en",
+  "category": "general",
+  "word": "journey",
+  "sentence": "The ~ to Wales took four hours."
+ },
+ {
+  "id": "en-0145",
+  "lang": "en",
+  "category": "general",
+  "word": "kingdom",
+  "sentence": "The prince inherited the ~ from his father."
+ },
+ {
+  "id": "en-0146",
+  "lang": "en",
+  "category": "general",
+  "word": "lantern",
+  "sentence": "A glowing ~ lit the path."
+ },
+ {
+  "id": "en-0147",
+  "lang": "en",
+  "category": "general",
+  "word": "mystery",
+  "sentence": "The missing key remained a ~."
+ },
+ {
+  "id": "en-0148",
+  "lang": "en",
+  "category": "general",
+  "word": "network",
+  "sentence": "My phone lost its ~ signal in the tunnel."
+ },
+ {
+  "id": "en-0149",
+  "lang": "en",
+  "category": "general",
+  "word": "octagon",
+  "sentence": "A stop sign is shaped like an ~."
+ },
+ {
+  "id": "en-0150",
+  "lang": "en",
+  "category": "general",
+  "word": "paradox",
+  "sentence": "It is a ~ that silence can be so loud."
+ },
+ {
+  "id": "en-0151",
+  "lang": "en",
+  "category": "general",
+  "word": "quality",
+  "sentence": "This coat is made of excellent ~."
+ },
+ {
+  "id": "en-0152",
+  "lang": "en",
+  "category": "general",
+  "word": "rainbow",
+  "sentence": "A ~ appeared after the shower."
+ },
+ {
+  "id": "en-0153",
+  "lang": "en",
+  "category": "general",
+  "word": "scholar",
+  "sentence": "The ~ spent years studying ancient texts."
+ },
+ {
+  "id": "en-0154",
+  "lang": "en",
+  "category": "general",
+  "word": "texture",
+  "sentence": "I love the rough ~ of the stone wall."
+ },
+ {
+  "id": "en-0155",
+  "lang": "en",
+  "category": "general",
+  "word": "uniform",
+  "sentence": "Pupils must wear a school ~."
+ },
+ {
+  "id": "en-0156",
+  "lang": "en",
+  "category": "general",
+  "word": "village",
+  "sentence": "Our ~ has one shop and a pub."
+ },
+ {
+  "id": "en-0157",
+  "lang": "en",
+  "category": "general",
+  "word": "warrior",
+  "sentence": "The ~ fought bravely in battle."
+ },
+ {
+  "id": "en-0158",
+  "lang": "en",
+  "category": "general",
+  "word": "whisper",
+  "sentence": "She leant in to ~ a secret."
+ },
+ {
+  "id": "en-0159",
+  "lang": "en",
+  "category": "general",
+  "word": "zealous",
+  "sentence": "He was a ~ supporter of the local team."
+ },
+ {
+  "id": "en-0160",
+  "lang": "en",
+  "category": "general",
+  "word": "abandon",
+  "sentence": "Never ~ your dreams."
+ },
+ {
+  "id": "en-0161",
+  "lang": "en",
+  "category": "general",
+  "word": "bicycle",
+  "sentence": "She rides her ~ to work every day."
+ },
+ {
+  "id": "en-0162",
+  "lang": "en",
+  "category": "general",
+  "word": "climate",
+  "sentence": "The ~ here is mild and wet."
+ },
+ {
+  "id": "en-0163",
+  "lang": "en",
+  "category": "general",
+  "word": "destiny",
+  "sentence": "He believed it was his ~ to be a pilot."
+ },
+ {
+  "id": "en-0164",
+  "lang": "en",
+  "category": "general",
+  "word": "element",
+  "sentence": "Gold is a chemical ~."
+ },
+ {
+  "id": "en-0165",
+  "lang": "en",
+  "category": "general",
+  "word": "fiction",
+  "sentence": "The library shelf was full of made-up stories, or ~."
+ },
+ {
+  "id": "en-0166",
+  "lang": "en",
+  "category": "general",
+  "word": "gesture",
+  "sentence": "He made a kind ~ by holding the door."
+ },
+ {
+  "id": "en-0167",
+  "lang": "en",
+  "category": "general",
+  "word": "horizon",
+  "sentence": "The sun sank below the ~."
+ },
+ {
+  "id": "en-0168",
+  "lang": "en",
+  "category": "general",
+  "word": "inspire",
+  "sentence": "Great teachers ~ their students."
+ },
+ {
+  "id": "en-0169",
+  "lang": "en",
+  "category": "general",
+  "word": "justice",
+  "sentence": "The court worked to deliver ~."
+ },
+ {
+  "id": "en-0170",
+  "lang": "en",
+  "category": "general",
+  "word": "kitchen",
+  "sentence": "Dad is baking a cake in the ~."
+ },
+ {
+  "id": "en-0171",
+  "lang": "en",
+  "category": "general",
+  "word": "library",
+  "sentence": "I borrowed three books from the ~."
+ },
+ {
+  "id": "en-0172",
+  "lang": "en",
+  "category": "general",
+  "word": "machine",
+  "sentence": "The washing ~ is making a strange noise."
+ },
+ {
+  "id": "en-0173",
+  "lang": "en",
+  "category": "general",
+  "word": "nuclear",
+  "sentence": "A ~ power station supplies electricity."
+ },
+ {
+  "id": "en-0174",
+  "lang": "en",
+  "category": "general",
+  "word": "observe",
+  "sentence": "Scientists ~ the stars with telescopes."
+ },
+ {
+  "id": "en-0175",
+  "lang": "en",
+  "category": "general",
+  "word": "bargain",
+  "sentence": "The coat was a real ~ at half price."
+ },
+ {
+  "id": "en-0176",
+  "lang": "en",
+  "category": "general",
+  "word": "chimney",
+  "sentence": "Smoke drifted from the ~."
+ },
+ {
+  "id": "en-0177",
+  "lang": "en",
+  "category": "general",
+  "word": "diamond",
+  "sentence": "The ring held a sparkling ~."
+ },
+ {
+  "id": "en-0178",
+  "lang": "en",
+  "category": "general",
+  "word": "fashion",
+  "sentence": "She loves following the latest ~."
+ },
+ {
+  "id": "en-0179",
+  "lang": "en",
+  "category": "general",
+  "word": "gallery",
+  "sentence": "We visited an art ~ on Saturday."
+ },
+ {
+  "id": "en-0180",
+  "lang": "en",
+  "category": "general",
+  "word": "harvest",
+  "sentence": "Farmers gather the ~ in autumn."
+ },
+ {
+  "id": "en-0181",
+  "lang": "en",
+  "category": "general",
+  "word": "invoice",
+  "sentence": "The plumber sent an ~ for his work."
+ },
+ {
+  "id": "en-0182",
+  "lang": "en",
+  "category": "general",
+  "word": "penguin",
+  "sentence": "A ~ waddled across the ice."
+ },
+ {
+  "id": "en-0183",
+  "lang": "en",
+  "category": "general",
+  "word": "absolute",
+  "sentence": "I have ~ trust in you."
+ },
+ {
+  "id": "en-0184",
+  "lang": "en",
+  "category": "general",
+  "word": "backyard",
+  "sentence": "The kids played football in the ~."
+ },
+ {
+  "id": "en-0185",
+  "lang": "en",
+  "category": "general",
+  "word": "calendar",
+  "sentence": "Mark the date on the ~."
+ },
+ {
+  "id": "en-0186",
+  "lang": "en",
+  "category": "general",
+  "word": "daylight",
+  "sentence": "We set off at first ~."
+ },
+ {
+  "id": "en-0187",
+  "lang": "en",
+  "category": "general",
+  "word": "elephant",
+  "sentence": "An ~ sprayed water with its trunk."
+ },
+ {
+  "id": "en-0188",
+  "lang": "en",
+  "category": "general",
+  "word": "firewall",
+  "sentence": "A ~ protects the computer from hackers."
+ },
+ {
+  "id": "en-0189",
+  "lang": "en",
+  "category": "general",
+  "word": "graceful",
+  "sentence": "The ballerina was elegant and ~."
+ },
+ {
+  "id": "en-0190",
+  "lang": "en",
+  "category": "general",
+  "word": "hospital",
+  "sentence": "She was taken to ~ by ambulance."
+ },
+ {
+  "id": "en-0191",
+  "lang": "en",
+  "category": "general",
+  "word": "instinct",
+  "sentence": "Birds migrate by ~."
+ },
+ {
+  "id": "en-0192",
+  "lang": "en",
+  "category": "general",
+  "word": "jubilant",
+  "sentence": "The ~ fans cheered the winning goal."
+ },
+ {
+  "id": "en-0193",
+  "lang": "en",
+  "category": "general",
+  "word": "keyboard",
+  "sentence": "He typed the email on his ~."
+ },
+ {
+  "id": "en-0194",
+  "lang": "en",
+  "category": "general",
+  "word": "language",
+  "sentence": "She is learning a new ~."
+ },
+ {
+  "id": "en-0195",
+  "lang": "en",
+  "category": "general",
+  "word": "mountain",
+  "sentence": "We climbed the highest ~ in Wales."
+ },
+ {
+  "id": "en-0196",
+  "lang": "en",
+  "category": "general",
+  "word": "notebook",
+  "sentence": "I jotted the idea in my ~."
+ },
+ {
+  "id": "en-0197",
+  "lang": "en",
+  "category": "general",
+  "word": "obstacle",
+  "sentence": "A fallen tree was an ~ on the road."
+ },
+ {
+  "id": "en-0198",
+  "lang": "en",
+  "category": "general",
+  "word": "painting",
+  "sentence": "The ~ of the sunset hung in the hall."
+ },
+ {
+  "id": "en-0199",
+  "lang": "en",
+  "category": "general",
+  "word": "question",
+  "sentence": "Please raise your hand to ask a ~."
+ },
+ {
+  "id": "en-0200",
+  "lang": "en",
+  "category": "general",
+  "word": "reliable",
+  "sentence": "My old car is cheap and ~."
+ },
+ {
+  "id": "en-0201",
+  "lang": "en",
+  "category": "general",
+  "word": "shoulder",
+  "sentence": "He carried the bag over one ~."
+ },
+ {
+  "id": "en-0202",
+  "lang": "en",
+  "category": "general",
+  "word": "tropical",
+  "sentence": "We holidayed on a ~ island."
+ },
+ {
+  "id": "en-0203",
+  "lang": "en",
+  "category": "general",
+  "word": "umbrella",
+  "sentence": "Take an ~ because it might rain."
+ },
+ {
+  "id": "en-0204",
+  "lang": "en",
+  "category": "general",
+  "word": "vertical",
+  "sentence": "The cliff face was almost ~."
+ },
+ {
+  "id": "en-0205",
+  "lang": "en",
+  "category": "general",
+  "word": "workshop",
+  "sentence": "Dad fixes bikes in his ~."
+ },
+ {
+  "id": "en-0206",
+  "lang": "en",
+  "category": "general",
+  "word": "yearbook",
+  "sentence": "Everyone signed my school ~."
+ },
+ {
+  "id": "en-0207",
+  "lang": "en",
+  "category": "general",
+  "word": "zucchini",
+  "sentence": "In Britain, a ~ is usually called a courgette."
+ },
+ {
+  "id": "en-0208",
+  "lang": "en",
+  "category": "general",
+  "word": "adhesive",
+  "sentence": "Use a strong ~ to fix the tile."
+ },
+ {
+  "id": "en-0209",
+  "lang": "en",
+  "category": "general",
+  "word": "boundary",
+  "sentence": "A hedge marks the ~ of the garden."
+ },
+ {
+  "id": "en-0210",
+  "lang": "en",
+  "category": "general",
+  "word": "creative",
+  "sentence": "She is a ~ person who loves art."
+ },
+ {
+  "id": "en-0211",
+  "lang": "en",
+  "category": "general",
+  "word": "dinosaur",
+  "sentence": "A ~ skeleton stood in the museum."
+ },
+ {
+  "id": "en-0212",
+  "lang": "en",
+  "category": "general",
+  "word": "equation",
+  "sentence": "Solve the ~ to find x."
+ },
+ {
+  "id": "en-0213",
+  "lang": "en",
+  "category": "general",
+  "word": "familiar",
+  "sentence": "Her face looked ~ but I couldn't place it."
+ },
+ {
+  "id": "en-0214",
+  "lang": "en",
+  "category": "general",
+  "word": "gradient",
+  "sentence": "The road has a steep ~."
+ },
+ {
+  "id": "en-0215",
+  "lang": "en",
+  "category": "general",
+  "word": "harmonic",
+  "sentence": "The choir sang in ~ tones."
+ },
+ {
+  "id": "en-0216",
+  "lang": "en",
+  "category": "general",
+  "word": "identify",
+  "sentence": "Can you ~ the bird from its song?"
+ },
+ {
+  "id": "en-0217",
+  "lang": "en",
+  "category": "general",
+  "word": "judgement",
+  "sentence": "Use your best ~ when deciding."
+ },
+ {
+  "id": "en-0218",
+  "lang": "en",
+  "category": "general",
+  "word": "lifetime",
+  "sentence": "It was the chance of a ~."
+ },
+ {
+  "id": "en-0219",
+  "lang": "en",
+  "category": "general",
+  "word": "midnight",
+  "sentence": "The clock struck ~."
+ },
+ {
+  "id": "en-0220",
+  "lang": "en",
+  "category": "general",
+  "word": "northern",
+  "sentence": "We saw the ~ lights in Iceland."
+ },
+ {
+  "id": "en-0221",
+  "lang": "en",
+  "category": "general",
+  "word": "optimism",
+  "sentence": "Her ~ cheered up the whole team."
+ },
+ {
+  "id": "en-0222",
+  "lang": "en",
+  "category": "general",
+  "word": "ambition",
+  "sentence": "His ~ is to become a doctor."
+ },
+ {
+  "id": "en-0223",
+  "lang": "en",
+  "category": "general",
+  "word": "bluebird",
+  "sentence": "A ~ perched on the fence."
+ },
+ {
+  "id": "en-0224",
+  "lang": "en",
+  "category": "general",
+  "word": "complete",
+  "sentence": "Please ~ the form before Friday."
+ },
+ {
+  "id": "en-0225",
+  "lang": "en",
+  "category": "general",
+  "word": "doorbell",
+  "sentence": "The ~ rang as we sat down to tea."
+ },
+ {
+  "id": "en-0226",
+  "lang": "en",
+  "category": "general",
+  "word": "envelope",
+  "sentence": "Put a stamp on the ~."
+ },
+ {
+  "id": "en-0227",
+  "lang": "en",
+  "category": "general",
+  "word": "festival",
+  "sentence": "We danced at the music ~ all weekend."
+ },
+ {
+  "id": "en-0228",
+  "lang": "en",
+  "category": "general",
+  "word": "gateway",
+  "sentence": "The arch was a ~ to the old town."
+ },
+ {
+  "id": "en-0229",
+  "lang": "en",
+  "category": "general",
+  "word": "platform",
+  "sentence": "The train leaves from ~ four."
+ },
+ {
+  "id": "en-0230",
+  "lang": "en",
+  "category": "general",
+  "word": "adventure",
+  "sentence": "The trip was a real ~."
+ },
+ {
+  "id": "en-0231",
+  "lang": "en",
+  "category": "general",
+  "word": "beautiful",
+  "sentence": "What a ~ sunny morning!"
+ },
+ {
+  "id": "en-0232",
+  "lang": "en",
+  "category": "general",
+  "word": "chocolate",
+  "sentence": "She melted ~ for the cake."
+ },
+ {
+  "id": "en-0233",
+  "lang": "en",
+  "category": "general",
+  "word": "delicious",
+  "sentence": "The soup smelt ~."
+ },
+ {
+  "id": "en-0234",
+  "lang": "en",
+  "category": "general",
+  "word": "encourage",
+  "sentence": "Teachers ~ children to read."
+ },
+ {
+  "id": "en-0235",
+  "lang": "en",
+  "category": "general",
+  "word": "fireworks",
+  "sentence": "~ lit up the sky on Bonfire Night."
+ },
+ {
+  "id": "en-0236",
+  "lang": "en",
+  "category": "general",
+  "word": "gentleman",
+  "sentence": "He held the door like a true ~."
+ },
+ {
+  "id": "en-0237",
+  "lang": "en",
+  "category": "general",
+  "word": "happiness",
+  "sentence": "Her face shone with ~."
+ },
+ {
+  "id": "en-0238",
+  "lang": "en",
+  "category": "general",
+  "word": "important",
+  "sentence": "It is ~ to drink enough water."
+ },
+ {
+  "id": "en-0239",
+  "lang": "en",
+  "category": "general",
+  "word": "knowledge",
+  "sentence": "Books are a source of ~."
+ },
+ {
+  "id": "en-0240",
+  "lang": "en",
+  "category": "general",
+  "word": "landscape",
+  "sentence": "The ~ was green and rolling."
+ },
+ {
+  "id": "en-0241",
+  "lang": "en",
+  "category": "general",
+  "word": "marathon",
+  "sentence": "She trained months to run the ~."
+ },
+ {
+  "id": "en-0242",
+  "lang": "en",
+  "category": "general",
+  "word": "nightmare",
+  "sentence": "I woke from a terrible ~."
+ },
+ {
+  "id": "en-0243",
+  "lang": "en",
+  "category": "general",
+  "word": "objective",
+  "sentence": "Our ~ is to finish by noon."
+ },
+ {
+  "id": "en-0244",
+  "lang": "en",
+  "category": "general",
+  "word": "passenger",
+  "sentence": "Each ~ showed a ticket."
+ },
+ {
+  "id": "en-0245",
+  "lang": "en",
+  "category": "general",
+  "word": "quicksand",
+  "sentence": "Explorers feared sinking into ~."
+ },
+ {
+  "id": "en-0246",
+  "lang": "en",
+  "category": "general",
+  "word": "raspberry",
+  "sentence": "He spread ~ jam on his toast."
+ },
+ {
+  "id": "en-0247",
+  "lang": "en",
+  "category": "general",
+  "word": "spaghetti",
+  "sentence": "We ate ~ with tomato sauce."
+ },
+ {
+  "id": "en-0248",
+  "lang": "en",
+  "category": "general",
+  "word": "telephone",
+  "sentence": "Please answer the ~."
+ },
+ {
+  "id": "en-0249",
+  "lang": "en",
+  "category": "general",
+  "word": "vegetable",
+  "sentence": "Carrot is my favourite ~."
+ },
+ {
+  "id": "en-0250",
+  "lang": "en",
+  "category": "general",
+  "word": "waterfall",
+  "sentence": "The ~ thundered into the pool."
+ },
+ {
+  "id": "en-0251",
+  "lang": "en",
+  "category": "general",
+  "word": "xylophone",
+  "sentence": "She played a tune on the ~."
+ },
+ {
+  "id": "en-0252",
+  "lang": "en",
+  "category": "general",
+  "word": "yesterday",
+  "sentence": "It rained all day ~."
+ },
+ {
+  "id": "en-0253",
+  "lang": "en",
+  "category": "general",
+  "word": "zookeeper",
+  "sentence": "The ~ fed the lions at noon."
+ },
+ {
+  "id": "en-0254",
+  "lang": "en",
+  "category": "general",
+  "word": "accordion",
+  "sentence": "He squeezed a lively tune from the ~."
+ },
+ {
+  "id": "en-0255",
+  "lang": "en",
+  "category": "general",
+  "word": "brilliant",
+  "sentence": "That was a ~ idea!"
+ },
+ {
+  "id": "en-0256",
+  "lang": "en",
+  "category": "general",
+  "word": "celebrate",
+  "sentence": "We ~ his birthday every year."
+ },
+ {
+  "id": "en-0257",
+  "lang": "en",
+  "category": "general",
+  "word": "astronaut",
+  "sentence": "The ~ floated inside the space station."
+ },
+ {
+  "id": "en-0258",
+  "lang": "en",
+  "category": "general",
+  "word": "butterfly",
+  "sentence": "A ~ landed on the flower."
+ },
+ {
+  "id": "en-0259",
+  "lang": "en",
+  "category": "general",
+  "word": "classroom",
+  "sentence": "The pupils sat quietly in the ~."
+ },
+ {
+  "id": "en-0260",
+  "lang": "en",
+  "category": "general",
+  "word": "dandelion",
+  "sentence": "She blew the seeds off a ~."
+ },
+ {
+  "id": "en-0261",
+  "lang": "en",
+  "category": "general",
+  "word": "expensive",
+  "sentence": "The watch was far too ~."
+ },
+ {
+  "id": "en-0262",
+  "lang": "en",
+  "category": "general",
+  "word": "fisherman",
+  "sentence": "The ~ mended his nets."
+ },
+ {
+  "id": "en-0263",
+  "lang": "en",
+  "category": "general",
+  "word": "grandfather",
+  "sentence": "My ~ tells wonderful stories."
+ },
+ {
+  "id": "en-0264",
+  "lang": "en",
+  "category": "general",
+  "word": "dangerous",
+  "sentence": "Crossing the road without looking is ~."
+ },
+ {
+  "id": "en-0265",
+  "lang": "en",
+  "category": "general",
+  "word": "architect",
+  "sentence": "The ~ drew plans for the new library."
+ },
+ {
+  "id": "en-0266",
+  "lang": "en",
+  "category": "general",
+  "word": "boundaries",
+  "sentence": "Parents set clear ~ for children."
+ },
+ {
+  "id": "en-0267",
+  "lang": "en",
+  "category": "general",
+  "word": "camouflage",
+  "sentence": "The lizard used ~ to hide on the bark."
+ },
+ {
+  "id": "en-0268",
+  "lang": "en",
+  "category": "general",
+  "word": "democracy",
+  "sentence": "In a ~, people vote for leaders."
+ },
+ {
+  "id": "en-0269",
+  "lang": "en",
+  "category": "general",
+  "word": "enthusiasm",
+  "sentence": "He showed great ~ for the project."
+ },
+ {
+  "id": "en-0270",
+  "lang": "en",
+  "category": "general",
+  "word": "fascinating",
+  "sentence": "The documentary was absolutely ~."
+ },
+ {
+  "id": "en-0271",
+  "lang": "en",
+  "category": "general",
+  "word": "geography",
+  "sentence": "We studied rivers in ~ today."
+ },
+ {
+  "id": "en-0272",
+  "lang": "en",
+  "category": "general",
+  "word": "hemisphere",
+  "sentence": "Australia lies in the southern ~."
+ },
+ {
+  "id": "en-0273",
+  "lang": "en",
+  "category": "general",
+  "word": "imagination",
+  "sentence": "Children have a wonderful ~."
+ },
+ {
+  "id": "en-0274",
+  "lang": "en",
+  "category": "general",
+  "word": "kaleidoscope",
+  "sentence": "The ~ made colourful patterns."
+ },
+ {
+  "id": "en-0275",
+  "lang": "en",
+  "category": "general",
+  "word": "laboratory",
+  "sentence": "The scientist worked in a ~."
+ },
+ {
+  "id": "en-0276",
+  "lang": "en",
+  "category": "general",
+  "word": "magnificent",
+  "sentence": "The palace looked ~ in the sunshine."
+ },
+ {
+  "id": "en-0277",
+  "lang": "en",
+  "category": "general",
+  "word": "necessary",
+  "sentence": "It is ~ to wear a helmet."
+ },
+ {
+  "id": "en-0278",
+  "lang": "en",
+  "category": "general",
+  "word": "opportunity",
+  "sentence": "Don't miss this ~."
+ },
+ {
+  "id": "en-0279",
+  "lang": "en",
+  "category": "general",
+  "word": "pronunciation",
+  "sentence": "Her French ~ is excellent."
+ },
+ {
+  "id": "en-0280",
+  "lang": "en",
+  "category": "general",
+  "word": "questionnaire",
+  "sentence": "Please fill in the ~ online."
+ },
+ {
+  "id": "en-0281",
+  "lang": "en",
+  "category": "general",
+  "word": "rhinoceros",
+  "sentence": "A ~ has a horn on its nose."
+ },
+ {
+  "id": "en-0282",
+  "lang": "en",
+  "category": "general",
+  "word": "sophisticated",
+  "sentence": "The ~ machine could solve complex puzzles."
+ },
+ {
+  "id": "en-0283",
+  "lang": "en",
+  "category": "general",
+  "word": "thunderstorm",
+  "sentence": "A loud ~ rattled the windows."
+ },
+ {
+  "id": "en-0284",
+  "lang": "en",
+  "category": "general",
+  "word": "unbelievable",
+  "sentence": "The view was simply ~."
+ },
+ {
+  "id": "en-0285",
+  "lang": "en",
+  "category": "general",
+  "word": "vocabulary",
+  "sentence": "Reading improves your ~."
+ },
+ {
+  "id": "en-0286",
+  "lang": "en",
+  "category": "general",
+  "word": "wilderness",
+  "sentence": "They hiked through the ~ for days."
+ },
+ {
+  "id": "en-0287",
+  "lang": "en",
+  "category": "general",
+  "word": "extraordinary",
+  "sentence": "She has an ~ talent for music."
+ },
+ {
+  "id": "en-0288",
+  "lang": "en",
+  "category": "general",
+  "word": "parallelogram",
+  "sentence": "A ~ has two pairs of parallel sides."
+ },
+ {
+  "id": "en-0289",
+  "lang": "en",
+  "category": "general",
+  "word": "conscience",
+  "sentence": "His ~ told him to own up."
+ },
+ {
+  "id": "en-0290",
+  "lang": "en",
+  "category": "general",
+  "word": "entrepreneur",
+  "sentence": "The young ~ started her own company."
+ },
+ {
+  "id": "en-0291",
+  "lang": "en",
+  "category": "general",
+  "word": "phenomenon",
+  "sentence": "A rainbow is a natural ~."
+ },
+ {
+  "id": "en-0292",
+  "lang": "en",
+  "category": "general",
+  "word": "silhouette",
+  "sentence": "We saw the ~ of a tree at dusk."
+ },
+ {
+  "id": "en-0293",
+  "lang": "en",
+  "category": "general",
+  "word": "atmosphere",
+  "sentence": "The Earth's ~ contains oxygen."
+ },
+ {
+  "id": "en-0294",
+  "lang": "en",
+  "category": "general",
+  "word": "blackboard",
+  "sentence": "The teacher wrote on the ~."
+ },
+ {
+  "id": "en-0295",
+  "lang": "en",
+  "category": "general",
+  "word": "celebration",
+  "sentence": "The street was alive with ~."
+ },
+ {
+  "id": "en-0296",
+  "lang": "en",
+  "category": "general",
+  "word": "dictionary",
+  "sentence": "Look up the meaning in a ~."
+ },
+ {
+  "id": "en-0297",
+  "lang": "en",
+  "category": "general",
+  "word": "earthquake",
+  "sentence": "The ~ shook the whole town."
+ },
+ {
+  "id": "en-0298",
+  "lang": "en",
+  "category": "general",
+  "word": "friendship",
+  "sentence": "Their ~ lasted a lifetime."
+ },
+ {
+  "id": "en-0299",
+  "lang": "en",
+  "category": "general",
+  "word": "gratitude",
+  "sentence": "She wrote a note of ~."
+ },
+ {
+  "id": "en-0300",
+  "lang": "en",
+  "category": "general",
+  "word": "onomatopoeia",
+  "sentence": "\"Buzz\" is an example of ~."
+ }
+]
