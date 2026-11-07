@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DevTools Command Menu: a line-drawn field guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="devtools-command-menu.css">
+</head>
+<body>
+<main>
+<nav aria-label="Site"><a class="back" href="../index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to toolkit</a></nav>
+<header>
+  <div>
+    <h1>The DevTools Command Menu, drawn out</h1>
+    <p>One shortcut opens a search box for almost every hidden DevTools feature. Press it, type a few letters, hit Enter.</p>
+    <div class="open" id="openKeys"></div>
+  </div>
+  <div class="hero" aria-hidden="true">
+    <svg viewBox="0 0 420 300">
+      <rect class="st fill draw" pathLength="1" x="20" y="20" width="380" height="260" rx="10"/>
+      <path class="st draw" pathLength="1" d="M20 56h380"/>
+      <circle class="st" cx="42" cy="38" r="5"/><circle class="st" cx="60" cy="38" r="5"/><circle class="st" cx="78" cy="38" r="5"/>
+      <rect class="st fill draw" pathLength="1" x="60" y="80" width="300" height="168" rx="8"/>
+      <path class="st" d="M76 108h12M82 102v12" />
+      <text id="typed" x="98" y="113"></text>
+      <path class="caret" id="caret" d="M98 98v20"/>
+      <path class="st" d="M76 128h268"/>
+      <path class="st" d="M76 150h150M76 174h110M76 198h190M76 222h130" stroke-dasharray="2 8"/>
+    </svg>
+  </div>
+</header>
+
+<div class="controls">
+  <label class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>
+    <input id="q" type="search" placeholder="Filter: screenshot, mobile, offline…" aria-label="Filter commands"></label>
+  <div class="chips" id="chips"></div>
+  <div class="os" role="group" aria-label="Operating system"><button data-os="win" aria-pressed="true">Windows / Linux</button><button data-os="mac" aria-pressed="false">Mac</button></div>
+</div>
+
+<section class="grid" id="grid" aria-live="polite"></section>
+
+<section class="how">
+  <h2>Prefixes worth knowing</h2>
+  <ol>
+    <li>Open the Command Menu, then delete the <code>&gt;</code> and type a file name to jump to any source file.</li>
+    <li><code>@</code> jumps to a function in the open file, <code>:</code> to a line number, <code>?</code> lists every prefix.</li>
+    <li><code>!</code> runs a saved snippet. Press <code>Esc</code> at any time to toggle the console drawer.</li>
+  </ol>
+</section>
+<section class="how">
+  <h2>Handy extras</h2>
+  <ol>
+    <li>Hard reload with <code>Ctrl+Shift+R</code> (<code>Cmd+Shift+R</code> on Mac). A plain <code>Ctrl+R</code> may reuse cached files.</li>
+    <li>Network panel: tick <code>Preserve log</code> to keep requests across redirects, and right-click a request for <code>Copy as fetch</code> or <code>Copy as cURL</code>.</li>
+    <li>Performance panel: use the CPU throttling setting to see how a slower phone copes.</li>
+    <li>Rendering drawer: turn on <code>Paint flashing</code> and <code>Layout Shift Regions</code> to spot costly repaints.</li>
+  </ol>
+</section>
+<footer>Menu labels shift a little between Chrome versions. If a command is missing, type a keyword from its name.</footer>
+</main>
+
+<div id="toast" role="status" style="position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:8px;font-size:.9rem;opacity:0;transition:opacity .2s;pointer-events:none;z-index:10"></div>
+
+<script src="devtools-command-menu.js"></script>
+</body>
+</html>
