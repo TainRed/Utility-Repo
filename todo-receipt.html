@@ -333,16 +333,12 @@ function drawReceipt(){
 
 /* ---------- save image ---------- */
 $('#save').onclick = () => {
+  const cv = $('#cv');
+  // Straight download on every device
   const stamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-');
-  $('#cv').toBlob(async blob => {
-    const file = new File([blob], 'todo-' + stamp + '.png', { type: 'image/png' });
-    // On phones, the share sheet offers "Save Image" to the photo library
-    if (matchMedia('(pointer:coarse)').matches && navigator.canShare && navigator.canShare({ files: [file] })) {
-      try { await navigator.share({ files: [file] }); return; }
-      catch (err) { if (err.name === 'AbortError') return; }
-    }
+  cv.toBlob(blob => {
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob); a.download = file.name; a.click();
+    a.href = URL.createObjectURL(blob); a.download = 'todo-' + stamp + '.png'; a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 4000);
   }, 'image/png');
 };
