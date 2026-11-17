@@ -1,62 +1,108 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Toolkit</title>
-<style>
-  body { margin: 0; background: #eef1f4; color: #14202b; font-family: system-ui, sans-serif; }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 56px 20px; }
-  h1 { font-size: 56px; margin: 0 0 8px; }
-  .sub { color: #5b6b79; margin: 0 0 40px; }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Toolkit</title>
+    <style>
+      body {
+        margin: 0;
+        background: #eef1f4;
+        color: #14202b;
+        font-family: system-ui, sans-serif;
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 56px 20px;
+      }
+      h1 {
+        font-size: 56px;
+        margin: 0 0 8px;
+      }
+      .sub {
+        color: #5b6b79;
+        margin: 0 0 40px;
+      }
 
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-  .card { display: block; background: #fff; border: 1px solid #d5dce3; border-radius: 14px; overflow: hidden; color: inherit; text-decoration: none; }
-  .card:hover { border-color: #2b4eff; }
-  .card img { display: block; width: 100%; }
-  .card div { padding: 16px 18px 20px; }
-  .card h2 { margin: 0 0 4px; font-size: 20px; }
-  .card p { margin: 0; color: #5b6b79; font-size: 15px; }
-</style>
-</head>
-<body>
-<div class="wrap">
-  <h1>T-Toolkit</h1>
-  <p class="sub">Pick a tool to open it.</p>
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 20px;
+      }
+      .card {
+        display: block;
+        background: #fff;
+        border: 1px solid #d5dce3;
+        border-radius: 14px;
+        overflow: hidden;
+        color: inherit;
+        text-decoration: none;
+      }
+      .card:hover {
+        border-color: #2b4eff;
+      }
+      .card img {
+        display: block;
+        width: 100%;
+      }
+      .card div {
+        padding: 16px 18px 20px;
+      }
+      .card h2 {
+        margin: 0 0 4px;
+        font-size: 20px;
+      }
+      .card p {
+        margin: 0;
+        color: #5b6b79;
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>T-Toolkit</h1>
+      <p class="sub">Pick a tool to open it.</p>
 
-  <div class="grid">
+      <div class="grid">
+        <a class="card" href="etsy-calculator.html">
+          <img src="img/etsy.svg" alt="" />
+          <div>
+            <h2>Etsy POD Profit Calculator</h2>
+            <p>Track listings, costs and profit for your Etsy shop.</p>
+          </div>
+        </a>
 
-    <a class="card" href="etsy-calculator.html">
-      <img src="img/etsy.svg" alt="">
-      <div>
-        <h2>Etsy POD Profit Calculator</h2>
-        <p>Track listings, costs and profit for your Etsy shop.</p>
+        <a class="card" href="car-loan.html">
+          <img src="img/car-loan.svg" alt="" />
+          <div>
+            <h2>Car loan calculator</h2>
+            <p>Set amount, length and interest. See each month's payment.</p>
+          </div>
+        </a>
+        <a class="card" href="spelling-bee-project/spelling-bee/index.html">
+          <img src="img/spelling-bee-tile.svg" alt="" />
+          <div>
+            <h2>Spelling Bee</h2>
+            <p>Learn to spell in English, French and Spanish</p>
+          </div>
+        </a>
+        <a class="card" href="inspect-shortcut/devtools-command-menu.html">
+          <img src="img/devtools-card.svg" alt="" />
+          <div>
+            <h2>Chrome Inspect tool Shortcuts</h2>
+            <p>Hand chrome inspect tool short cuts for devs</p>
+          </div>
+        </a>
+        <a class="card" href="todo-receipt.html">
+          <img src="img/todo.png" alt="" />
+          <div>
+            <h2>Todo List Image receipt</h2>
+            <p>Download todo list as image then delete when done</p>
+          </div>
+        </a>
       </div>
-    </a>
-
-    <a class="card" href="car-loan.html">
-      <img src="img/car-loan.svg" alt="">
-      <div>
-        <h2>Car loan calculator</h2>
-        <p>Set amount, length and interest. See each month's payment.</p>
-      </div>
-    </a>
-    <a class="card" href="spelling-bee-project/spelling-bee/index.html">
-      <img src="img/spelling-bee-tile.svg" alt="">
-      <div>
-        <h2>Spelling Bee</h2>
-        <p>Learn to spell in English, French and Spanish</p>
-      </div>
-    </a>
-    <a class="card" href="inspect-shortcut/devtools-command-menu.html">
-      <img src="img/devtools-card.svg" alt="">
-      <div>
-        <h2>Chrome Inspect tool Shortcuts</h2>
-        <p>Hand chrome inspect tool short cuts for devs</p>
-      </div>
-    </a>
-
-  </div>
-</div>
-</body>
+    </div>
+  </body>
 </html>

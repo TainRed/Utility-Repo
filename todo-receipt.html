@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>To-do receipt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<style>
+  :root{
+    --desk:#e8eaed; --card:#fff; --ink:#16181a; --muted:#6b7280; --line:#d5d9df; --accent:#1f3fd1;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--desk);color:var(--ink);font:16px/1.4 "IBM Plex Sans",system-ui,sans-serif}
+  .wrap{max-width:560px;margin:0 auto;padding:16px}
+  a.back{display:inline-block;margin-bottom:8px;color:var(--muted);text-decoration:none;font-size:14px}
+  h1{font:700 22px "JetBrains Mono",monospace;margin:0 0 14px}
+
+  .add{display:flex;gap:8px;margin-bottom:14px}
+  .add input{min-width:0}
+  input{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+  input:focus{outline:2px solid var(--accent);outline-offset:1px}
+  #nt{flex:1}
+  #nm,.m{width:72px;text-align:center}
+  button{font:inherit;border:0;border-radius:10px;padding:11px 16px;background:var(--ink);color:#fff;cursor:pointer}
+  button.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  #list{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-direction:column;gap:8px}
+  .card{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px}
+  .card .t{flex:1;min-width:0;border-color:transparent;padding-left:6px}
+  .card .m{border-color:transparent;background:#f3f4f6}
+  .grip{touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;font-size:22px;line-height:1;color:var(--muted);padding:6px 8px}
+  .x{background:transparent;color:var(--muted);padding:6px 10px;font-size:20px;line-height:1}
+  .card.drag{box-shadow:0 8px 20px rgba(0,0,0,.18);border-color:var(--accent);position:relative;z-index:2}
+  .empty{color:var(--muted);font-size:14px;margin:0 0 12px}
+
+  .bar{display:flex;gap:8px;align-items:center;margin-bottom:18px}
+  .bar .sum{flex:1;color:var(--muted);font-size:14px}
+
+  .preview{display:flex;flex-direction:column;align-items:center;gap:10px}
+  canvas{width:100%;max-width:420px;height:auto;display:block;border-radius:4px}
+  #note{color:#b45309;font-size:13px;margin:0;min-height:1em}
+
+  @media (min-width:880px){
+    .wrap{max-width:980px;display:grid;grid-template-columns:1fr 440px;gap:28px;align-items:start;padding:32px}
+    .head{grid-column:1 / -1}
+    .preview{position:sticky;top:24px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <a class="back" href="index.html">&larr; T-Toolkit</a>
+    <h1>To-do receipt</h1>
+  </div>
+
+  <section>
+    <div class="add">
+      <input id="nt" type="text" maxlength="60" placeholder="Add a task" enterkeyhint="done" autocomplete="off">
+      <input id="nm" type="number" inputmode="numeric" min="0" max="999" placeholder="min" enterkeyhint="done">
+      <button id="add">Add</button>
+    </div>
+    <p class="empty" id="empty">No tasks yet.</p>
+    <ul id="list"></ul>
+    <div class="bar">
+      <span class="sum" id="sum"></span>
+      <button class="alt" id="clear">Clear</button>
+    </div>
+  </section>
+
+  <section class="preview">
+    <canvas id="cv"></canvas>
+    <p id="note"></p>
+    <button id="save" style="width:100%;max-width:420px">Save image</button>
+  </section>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const KEY = 'todo-receipt-v1';
+let items = [];
+let uid = 0;
+
+/* ---------- list <-> link ---------- */
+// "task_mins,task_mins" with each task percent-encoded (underscore escaped)
+const enc = () => items.filter(i => i.t.trim())
+  .map(i => encodeURIComponent(i.t.trim()).replace(/_/g, '%5F') + (i.m ? '_' + i.m : ''))
+  .join(',');
+
+function dec(s){
+  return s.split(',').filter(Boolean).map(p => {
+    const [t, m] = p.split('_');
+    let text = t; try { text = decodeURIComponent(t); } catch(e) {}
+    return { id: ++uid, t: text, m: parseInt(m) || 0 };
+  });
+}
+
+function load(){
+  try { if (location.hash.startsWith('#l=')) { items = dec(location.hash.slice(3)); return; } } catch(e) {}
+  try { const s = localStorage.getItem(KEY); if (s) items = dec(s); } catch(e) {}
+}
+
+function save(){
+  const e = enc();
+  try { localStorage.setItem(KEY, e); } catch(err) {}
+  try { history.replaceState(null, '', e ? '#l=' + e : location.pathname + location.search); } catch(err) {}
+  drawReceipt();
+  updateSummary();
+}
+
+/* ---------- cards ---------- */
+const ul = $('#list');
+
+function renderList(){
+  ul.innerHTML = '';
+  items.forEach(it => {
+    const li = document.createElement('li');
+    li.className = 'card';
+    li.dataset.id = it.id;
+    li.innerHTML = '<span class="grip" aria-label="Drag to reorder">&#8942;&#8942;</span>' +
+      '<input class="t" type="text" maxlength="60" placeholder="Task">' +
+      '<input class="m" type="number" inputmode="numeric" min="0" max="999" placeholder="min">' +
+      '<button class="x" aria-label="Delete task">&times;</button>';
+    li.querySelector('.t').value = it.t;
+    li.querySelector('.m').value = it.m || '';
+    ul.appendChild(li);
+  });
+  $('#empty').style.display = items.length ? 'none' : 'block';
+}
+
+function updateSummary(){
+  const total = items.reduce((a, i) => a + (i.m || 0), 0);
+  const n = items.filter(i => i.t.trim()).length;
+  $('#sum').textContent = n ? n + (n === 1 ? ' task' : ' tasks') + (total ? ' · ' + fmt(total) : '') : '';
+}
+
+const fmt = m => m >= 60 ? Math.floor(m / 60) + 'H ' + (m % 60 ? (m % 60) + 'M' : '').trim() : m + ' MIN';
+
+function addItem(){
+  const t = $('#nt').value.trim();
+  if (!t) { $('#nt').focus(); return; }
+  items.push({ id: ++uid, t, m: Math.max(0, parseInt($('#nm').value) || 0) });
+  $('#nt').value = ''; $('#nm').value = '';
+  renderList(); save();
+  $('#nt').focus();
+}
+$('#add').onclick = addItem;
+['#nt', '#nm'].forEach(s => $(s).addEventListener('keydown', e => { if (e.key === 'Enter') addItem(); }));
+
+ul.addEventListener('input', e => {
+  const li = e.target.closest('li'); if (!li) return;
+  const it = items.find(i => i.id == li.dataset.id); if (!it) return;
+  if (e.target.classList.contains('t')) it.t = e.target.value;
+  if (e.target.classList.contains('m')) it.m = Math.max(0, parseInt(e.target.value) || 0);
+  save();
+});
+
+ul.addEventListener('click', e => {
+  const x = e.target.closest('.x'); if (!x) return;
+  const id = x.closest('li').dataset.id;
+  items = items.filter(i => i.id != id);
+  renderList(); save();
+});
+
+$('#clear').onclick = () => {
+  if (!items.length || !confirm('Clear the whole list?')) return;
+  items = []; renderList(); save();
+};
+
+/* ---------- drag to reorder (touch + mouse) ---------- */
+ul.addEventListener('pointerdown', e => {
+  const grip = e.target.closest('.grip'); if (!grip) return;
+  const li = grip.closest('li');
+  li.classList.add('drag');
+  ul.setPointerCapture(e.pointerId);
+
+  const move = ev => {
+    const y = ev.clientY;
+    const others = [...ul.children].filter(c => c !== li);
+    const target = others.find(c => { const r = c.getBoundingClientRect(); return y < r.top + r.height / 2; }) || null;
+    if (li.nextElementSibling !== target) ul.insertBefore(li, target);
+  };
+  const up = () => {
+    li.classList.remove('drag');
+    ul.removeEventListener('pointermove', move);
+    ul.removeEventListener('pointerup', up);
+    ul.removeEventListener('pointercancel', up);
+    const order = [...ul.children].map(c => c.dataset.id);
+    items.sort((a, b) => order.indexOf(String(a.id)) - order.indexOf(String(b.id)));
+    save();
+  };
+  ul.addEventListener('pointermove', move);
+  ul.addEventListener('pointerup', up);
+  ul.addEventListener('pointercancel', up);
+});
+
+/* ---------- receipt ---------- */
+const W = 448, S = 3, MARGIN = 14, PAD = 40, LH = 22;
+const FONT = '"JetBrains Mono","DejaVu Sans Mono","Courier New",monospace';
+
+function wrap(ctx, text, max){
+  const lines = []; let cur = '';
+  for (let w of text.split(' ')) {
+    while (ctx.measureText(w).width > max) {
+      let k = w.length;
+      while (k > 1 && ctx.measureText(w.slice(0, k)).width > max) k--;
+      if (cur) { lines.push(cur); cur = ''; }
+      lines.push(w.slice(0, k)); w = w.slice(k);
+    }
+    const t = cur ? cur + ' ' + w : w;
+    if (cur && ctx.measureText(t).width > max) { lines.push(cur); cur = w; } else cur = t;
+  }
+  if (cur) lines.push(cur);
+  return lines.length ? lines : [''];
+}
+
+function getQR(){
+  if (!items.some(i => i.t.trim())) return null;
+  try {
+    const q = qrcode(0, 'L');
+    q.addData(location.href.split('#')[0] + '#l=' + enc());
+    q.make();
+    return q;
+  } catch(e) { return null; }
+}
+
+// Decorative barcode, seeded from the list so it changes with it
+function bars(seedStr, width){
+  let h = 2166136261;
+  for (const c of seedStr) h = Math.imul(h ^ c.charCodeAt(0), 16777619);
+  const out = []; let x = 0, dark = true;
+  while (x < width) {
+    h = Math.imul(h ^ (h >>> 15), 2246822519) >>> 0;
+    const w = 1 + (h % 4);
+    if (dark) out.push([x, Math.min(w, width - x)]);
+    x += w; dark = !dark;
+  }
+  return out;
+}
+
+function paint(ctx, dry, H, rows, qr){
+  const L = MARGIN + PAD, R = W - MARGIN - PAD, CX = W / 2, inner = R - L;
+  const numW = 38;
+  let y = MARGIN + 8 + 30;
+
+  const text = (s, x, yy, size, align, bold) => {
+    if (dry) return;
+    ctx.font = (bold ? 'bold ' : '') + size + 'px ' + FONT;
+    ctx.textAlign = align; ctx.fillStyle = '#1d1d1b';
+    ctx.fillText(s, x, yy);
+  };
+  const dash = yy => {
+    if (dry) return;
+    ctx.strokeStyle = '#1d1d1b'; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+    ctx.beginPath(); ctx.moveTo(L, yy); ctx.lineTo(R, yy); ctx.stroke(); ctx.setLineDash([]);
+  };
+
+  if (!dry) {
+    ctx.fillStyle = '#d9dce1'; ctx.fillRect(0, 0, W, H);
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,.18)'; ctx.shadowBlur = 8; ctx.shadowOffsetY = 2;
+    ctx.fillStyle = '#fffef9';
+    ctx.beginPath();
+    ctx.moveTo(MARGIN, MARGIN);
+    for (let x = MARGIN, up = false; x < W - MARGIN; x += 8, up = !up) ctx.lineTo(x + 4, MARGIN + (up ? 0 : 6));
+    ctx.lineTo(W - MARGIN, MARGIN);
+    ctx.lineTo(W - MARGIN, H - MARGIN);
+    for (let x = W - MARGIN, up = false; x > MARGIN; x -= 8, up = !up) ctx.lineTo(x - 4, H - MARGIN - (up ? 0 : 6));
+    ctx.lineTo(MARGIN, H - MARGIN);
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+
+  y = MARGIN + 82;
+  text('TO-DO LIST', CX, y, 34, 'center', true); y += 36;
+  const when = new Date().toLocaleString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }).toUpperCase();
+  text(when, CX, y, 14, 'center'); y += 15;
+  dash(y); y += 28;
+  text('ITEM', L, y, 13, 'left'); text('TIME', R, y, 13, 'right'); y += 14;
+  dash(y); y += 35;
+
+  if (!rows.length) { text('NOTHING YET', CX, y, 19, 'center'); y += 40; }
+  rows.forEach((r, i) => {
+    text(String(i + 1).padStart(2, '0'), L, y, 19, 'left');
+    r.lines.forEach((ln, k) => text(ln, L + numW, y + k * LH, 19, 'left'));
+    if (r.m) text(fmt(r.m), R, y, 19, 'right');
+    y += (r.lines.length - 1) * LH + 40;
+  });
+
+  y -= 21; dash(y); y += 35;
+  const total = rows.reduce((a, r) => a + (r.m || 0), 0);
+  text('ITEMS', L, y, 19, 'left'); text(String(rows.length), R, y, 19, 'right'); y += 32;
+  text('TOTAL TIME', L, y, 19, 'left', true); text(total ? fmt(total) : '-', R, y, 19, 'right', true); y += 19;
+  if (!dry) { ctx.fillStyle = '#1d1d1b'; ctx.fillRect(L, y, inner, 1.5); ctx.fillRect(L, y + 5, inner, 1.5); }
+  y += 26;
+
+  if (!dry) { ctx.fillStyle = '#1d1d1b'; bars(enc() + rows.length, inner).forEach(([x, w]) => ctx.fillRect(L + x, y, w, 44)); }
+  y += 62;
+
+  if (qr) {
+    const size = 118, n = qr.getModuleCount(), cell = size / n, qx = CX - size / 2;
+    if (!dry) {
+      ctx.fillStyle = '#1d1d1b';
+      for (let r = 0; r < n; r++) for (let c = 0; c < n; c++)
+        if (qr.isDark(r, c)) ctx.fillRect(qx + c * cell, y + r * cell, Math.ceil(cell * S) / S, Math.ceil(cell * S) / S);
+    }
+    y += size + 24;
+    text('SCAN TO OPEN AND EDIT THIS LIST', CX, y, 11, 'center');
+  }
+  return y + 38 + MARGIN;
+}
+
+function drawReceipt(){
+  const cv = $('#cv');
+  const probe = document.createElement('canvas').getContext('2d');
+  probe.font = '19px ' + FONT;
+  const textMax = (W - 2 * (MARGIN + PAD)) - 38 - 76;
+  const rows = items.filter(i => i.t.trim()).map(i => ({ ...i, lines: wrap(probe, i.t.trim().toUpperCase(), textMax) }));
+  const qr = getQR();
+  $('#note').textContent = rows.length && !qr ? 'List is too long for a QR code. Shorten a few tasks.' : '';
+
+  const H = Math.ceil(paint(probe, true, 0, rows, qr));
+  cv.width = W * S; cv.height = H * S;
+  const ctx = cv.getContext('2d');
+  ctx.scale(S, S);
+  paint(ctx, false, H, rows, qr);
+}
+
+/* ---------- save image ---------- */
+$('#save').onclick = () => {
+  const stamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-');
+  $('#cv').toBlob(async blob => {
+    const file = new File([blob], 'todo-' + stamp + '.png', { type: 'image/png' });
+    // On phones, the share sheet offers "Save Image" to the photo library
+    if (matchMedia('(pointer:coarse)').matches && navigator.canShare && navigator.canShare({ files: [file] })) {
+      try { await navigator.share({ files: [file] }); return; }
+      catch (err) { if (err.name === 'AbortError') return; }
+    }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = file.name; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  }, 'image/png');
+};
+
+/* ---------- start ---------- */
+window.addEventListener('hashchange', () => {
+  if (location.hash.startsWith('#l=')) { items = dec(location.hash.slice(3)); renderList(); drawReceipt(); updateSummary(); }
+});
+load(); renderList(); drawReceipt(); updateSummary();
+Promise.all([document.fonts.load('19px "JetBrains Mono"'), document.fonts.load('bold 19px "JetBrains Mono"')])
+  .then(drawReceipt).catch(() => {});
+</script>
+</body>
+</html>
