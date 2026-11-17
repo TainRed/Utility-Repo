@@ -30,11 +30,17 @@
   button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
   #list{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-direction:column;gap:8px}
-  .card{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px}
+  .card{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px}
   .card .t{flex:1;min-width:0;border-color:transparent;padding-left:6px}
   .card .m{border-color:transparent;background:#f3f4f6}
   .grip{touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;font-size:22px;line-height:1;color:var(--muted);padding:6px 8px}
   .x{background:transparent;color:var(--muted);padding:6px 10px;font-size:20px;line-height:1}
+  .sub{flex-basis:100%;padding-left:40px;margin-top:-2px}
+  .s{background:var(--card);color:var(--ink);border:1.5px solid #9ca3af;opacity:1;padding:4px 12px;border-radius:8px;line-height:1}
+  .s:hover{border-color:var(--ink)}
+  .stk{font:600 14px "IBM Plex Sans",sans-serif;letter-spacing:.5px;text-decoration:line-through;text-decoration-thickness:2px}
+  .card.done .s{color:var(--accent);border-color:var(--accent);background:#eef1fd}
+  .card.done .t{text-decoration:line-through;color:var(--muted)}
   .card.drag{box-shadow:0 8px 20px rgba(0,0,0,.18);border-color:var(--accent);position:relative;z-index:2}
   .empty{color:var(--muted);font-size:14px;margin:0 0 12px}
 
@@ -62,7 +68,7 @@
   <section>
     <div class="add">
       <input id="nt" type="text" maxlength="60" placeholder="Add a task" enterkeyhint="done" autocomplete="off">
-      <input id="nm" type="number" inputmode="numeric" min="0" max="999" placeholder="min" enterkeyhint="done">
+      <input id="nm" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3" placeholder="min" enterkeyhint="done">
       <button id="add">Add</button>
     </div>
     <p class="empty" id="empty">No tasks yet.</p>
@@ -89,14 +95,14 @@ let uid = 0;
 /* ---------- list <-> link ---------- */
 // "task_mins,task_mins" with each task percent-encoded (underscore escaped)
 const enc = () => items.filter(i => i.t.trim())
-  .map(i => encodeURIComponent(i.t.trim()).replace(/_/g, '%5F') + (i.m ? '_' + i.m : ''))
+  .map(i => encodeURIComponent(i.t.trim()).replace(/_/g, '%5F') + (i.m || i.x ? '_' + (i.m || 0) : '') + (i.x ? '_1' : ''))
   .join(',');
 
 function dec(s){
   return s.split(',').filter(Boolean).map(p => {
-    const [t, m] = p.split('_');
+    const [t, m, x] = p.split('_');
     let text = t; try { text = decodeURIComponent(t); } catch(e) {}
-    return { id: ++uid, t: text, m: parseInt(m) || 0 };
+    return { id: ++uid, t: text, m: parseInt(m) || 0, x: x === '1' };
   });
 }
 
@@ -120,12 +126,13 @@ function renderList(){
   ul.innerHTML = '';
   items.forEach(it => {
     const li = document.createElement('li');
-    li.className = 'card';
+    li.className = 'card' + (it.x ? ' done' : '');
     li.dataset.id = it.id;
     li.innerHTML = '<span class="grip" aria-label="Drag to reorder">&#8942;&#8942;</span>' +
       '<input class="t" type="text" maxlength="60" placeholder="Task">' +
-      '<input class="m" type="number" inputmode="numeric" min="0" max="999" placeholder="min">' +
-      '<button class="x" aria-label="Delete task">&times;</button>';
+      '<input class="m" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3" placeholder="min">' +
+      '<button class="x" aria-label="Delete task">&times;</button>' +
+      '<div class="sub"><button class="s" aria-label="Cross out" aria-pressed="' + !!it.x + '"><span class="stk">abc</span></button></div>';
     li.querySelector('.t').value = it.t;
     li.querySelector('.m').value = it.m || '';
     ul.appendChild(li);
@@ -134,9 +141,11 @@ function renderList(){
 }
 
 function updateSummary(){
-  const total = items.reduce((a, i) => a + (i.m || 0), 0);
-  const n = items.filter(i => i.t.trim()).length;
-  $('#sum').textContent = n ? n + (n === 1 ? ' task' : ' tasks') + (total ? ' · ' + fmt(total) : '') : '';
+  const live = items.filter(i => i.t.trim());
+  const n = live.length;
+  const left = live.filter(i => !i.x).reduce((a, i) => a + Math.max(0, i.m || 0), 0);
+  const done = live.filter(i => i.x).reduce((a, i) => a + Math.max(0, i.m || 0), 0);
+  $('#sum').textContent = n ? n + (n === 1 ? ' task' : ' tasks') + (left ? ' · ' + fmt(left) + ' left' : '') + (done ? ' · ' + fmt(done) + ' done' : '') : '';
 }
 
 const fmt = m => m >= 60 ? Math.floor(m / 60) + 'H ' + (m % 60 ? (m % 60) + 'M' : '').trim() : m + ' MIN';
@@ -149,6 +158,7 @@ function addItem(){
   renderList(); save();
   $('#nt').focus();
 }
+$('#nm').addEventListener('input', e => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 3); });
 $('#add').onclick = addItem;
 ['#nt', '#nm'].forEach(s => $(s).addEventListener('keydown', e => { if (e.key === 'Enter') addItem(); }));
 
@@ -156,11 +166,20 @@ ul.addEventListener('input', e => {
   const li = e.target.closest('li'); if (!li) return;
   const it = items.find(i => i.id == li.dataset.id); if (!it) return;
   if (e.target.classList.contains('t')) it.t = e.target.value;
-  if (e.target.classList.contains('m')) it.m = Math.max(0, parseInt(e.target.value) || 0);
+  if (e.target.classList.contains('m')) { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 3); it.m = parseInt(e.target.value) || 0; }
   save();
 });
 
 ul.addEventListener('click', e => {
+  const sb = e.target.closest('.s');
+  if (sb) {
+    const li = sb.closest('li');
+    const it = items.find(i => i.id == li.dataset.id); if (!it) return;
+    it.x = !it.x;
+    li.classList.toggle('done', it.x);
+    sb.setAttribute('aria-pressed', it.x);
+    save(); return;
+  }
   const x = e.target.closest('.x'); if (!x) return;
   const id = x.closest('li').dataset.id;
   items = items.filter(i => i.id != id);
@@ -289,13 +308,20 @@ function paint(ctx, dry, H, rows, qr){
     text(String(i + 1).padStart(2, '0'), L, y, 19, 'left');
     r.lines.forEach((ln, k) => text(ln, L + numW, y + k * LH, 19, 'left'));
     if (r.m) text(fmt(r.m), R, y, 19, 'right');
+    if (r.x && !dry) {
+      ctx.fillStyle = '#1d1d1b'; ctx.font = '19px ' + FONT;
+      r.lines.forEach((ln, k) => ctx.fillRect(L + numW, y + k * LH - 6, ctx.measureText(ln).width, 1.5));
+      if (r.m) { const tw = ctx.measureText(fmt(r.m)).width; ctx.fillRect(R - tw, y - 6, tw, 1.5); }
+    }
     y += (r.lines.length - 1) * LH + 40;
   });
 
   y -= 21; dash(y); y += 35;
-  const total = rows.reduce((a, r) => a + (r.m || 0), 0);
+  const total = rows.filter(r => !r.x).reduce((a, r) => a + Math.max(0, r.m || 0), 0);
+  const doneT = rows.filter(r => r.x).reduce((a, r) => a + Math.max(0, r.m || 0), 0);
   text('ITEMS', L, y, 19, 'left'); text(String(rows.length), R, y, 19, 'right'); y += 32;
-  text('TOTAL TIME', L, y, 19, 'left', true); text(total ? fmt(total) : '-', R, y, 19, 'right', true); y += 19;
+  text('COMPLETED', L, y, 19, 'left'); text(rows.length ? fmt(doneT) : '-', R, y, 19, 'right'); y += 32;
+  text('TOTAL TIME', L, y, 19, 'left', true); text(rows.length ? fmt(total) : '-', R, y, 19, 'right', true); y += 19;
   if (!dry) { ctx.fillStyle = '#1d1d1b'; ctx.fillRect(L, y, inner, 1.5); ctx.fillRect(L, y + 5, inner, 1.5); }
   y += 26;
 
